@@ -13,7 +13,6 @@ include 'bot_charlotte_functions.php';
 
 if($message){
 
-  // We break the string by looking for spaces then we get the first word
   $command = explode(' ',$message);
   $command = strtolower(array_shift($command));
 
