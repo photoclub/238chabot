@@ -7,6 +7,8 @@ include 'bot_charlotte_functions.php';
   $input = json_decode(file_get_contents('php://input'), true); // Get the chat
   $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // User Scope ID of sender
   $message = isset($input['entry'][0]['messaging'][0]['message']['text']) ? $input['entry'][0]['messaging'][0]['message']['text']: '' ;  // Get Message text if available
+  $postback = isset($input['entry'][0]['messaging'][0]['postback']['payload']) ? $input['entry'][0]['messaging'][0]['postback']['payload']: '' ;
+
   $jsonData = null;
 /* Processing the Chat message */
 
@@ -38,21 +40,20 @@ if($message){
   }
 
 
-  /* Required code to communicate back to Facebook */
-    $url = "https://graph.facebook.com/v2.6/me/messages?access_token=".$access_token;
-    $jsonData=[
-                'recipient' => [ 'id' => $sender ],
-                'message' => [ 'text' => $message_to_reply ]
-              ];
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($jsonData));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  if($message_to_reply){
+    /* Required code to communicate back to Facebook */
+      $url = "https://graph.facebook.com/v2.6/me/messages?access_token=".$access_token;
+      $jsonData=formatText($sender,$message_to_reply);
+      $ch = curl_init($url);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-    $result = curl_exec($ch);
-    curl_close($ch);
-  /* Required code to communicate back to Facebook */
+      $result = curl_exec($ch);
+      curl_close($ch);
+    /* Required code to communicate back to Facebook */
+  }
 }
 
 
@@ -67,4 +68,12 @@ Commands
    for a random trivia
    leave date blank
 ";
+}
+
+function formatText($sender, $message){
+  $jsonData=[
+    'recipient' => [ 'id' => $sender ],
+    'message' => [ 'text' => $message ]
+  ];
+  return json_encode($jsonData);
 }
