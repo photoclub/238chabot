@@ -68,7 +68,3 @@ Commands
    leave date blank
 ";
 }
-
-
-?>
-

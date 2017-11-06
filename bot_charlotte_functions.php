@@ -1,11 +1,12 @@
 <?php
 
 function getGender($gender_name){
+  $command = " Please try again.\n GENDER <name>";
+
   if(checkValidity($gender_name, 'name') == 1){
     $url = 'https://api.genderize.io/?name='.$gender_name;
-
     $proc = file_get_contents($url);
-    $proc = json_decode($proc, true); // second parameter will make $var an array rather than an object
+    $proc = json_decode($proc, true); 
     $prob = $proc['probability'] * 100;
     $name = $proc['name'];
 
@@ -15,34 +16,35 @@ function getGender($gender_name){
     }else{
       if (str_word_count($name) != 1){
         if(is_numeric($name)){
-          $output = "Numbers are not names. Please try again.\nGENDER <name>";
+          $output = "Numbers are not names.".$command;
         }else{
-          $output = "We only recognize one word name. Please separate ". ucwords($gender_name) ." into different queries.\nGENDER <name>";
+          $output = "We only recognize one word name. Separate ". ucwords($gender_name) ." into different queries.".$command;
         }
         //$output = str_word_count($name);
       }else{
-        $output = "Sorry! ". ucfirst($name) . " is not a recognized name. Please try again.\nGENDER <name>";
+        $output = "Sorry! ". ucfirst($name) . " is not a recognized name.".$command;
       }
       return $output;
     }
   }else{
-    return "Your name is using invalid characters";
+    return "Name is using invalid characters.".$command;
   }
 }
 
 
 function getHistoryDate($history_date = NULL){
+  $command = " Please try again.\nHISTORY <mm/dd>";
   if (!empty($history_date)){
     if(checkValidity($history_date, 'date') == 1){
       $history_date = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $history_date)));
-
       $history_date = str_replace(array('/','-'),' ', $history_date);
 
       $cd_space = explode(' ',$history_date);
       $m = $cd_space[0];
       $d = $cd_space[1];
 
-      if(is_numeric ($m) && is_numeric ($d)){
+      
+      if((is_numeric($m) && is_numeric ($d)) && (!empty($d) || !is_null($d))){
         $m = intval($m);
         $d = intval($d);
 
@@ -50,7 +52,6 @@ function getHistoryDate($history_date = NULL){
           $month_names = array( '1' => "January",'2' => "February",'3' => "March",'4' => "April",
                                 '5' => "May",'6' => "June",'7' => "July",'8' => "August",'9' => "September",
                                 '10' => "October",'11' => "November",'12' => "December" );
-
         
           if (preg_match("/^(?:[1-9]|0[1-9]|1[0-2])$/",$m) && preg_match("/^(?:[0-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])$/",$d)) {
             $pass = false;
@@ -63,7 +64,7 @@ function getHistoryDate($history_date = NULL){
               }elseif(( $m == 2 ) && ($d <= 29 )){
                 $pass = true;
               }else{
-                return 'Sorry, you miscounted the days for '. $month_names[$m].". Please try again. \nHISTORY <mm/dd>";
+                return 'Sorry, you miscounted the days for '. $month_names[$m].". ".$command;
               }
             }while($pass == false);
 
@@ -75,19 +76,21 @@ function getHistoryDate($history_date = NULL){
             }
 
           } else {
-            $output = "Invalid date. Please try again.\nHISTORY <mm/dd>";
+            $output = "Invalid date.".$command;
           }
         }else{
-          $output = "Dates must be more than 0. Please try again. \nHISTORY <mm/dd>";
+          $output = "Dates must be more than 0.".$command;
         }
-
       }else{
-        $output = "Dates must be numeric values. Please try again. \nHISTORY <mm/dd>";
+        if(is_numeric($m)){
+          $output = "Date is missing one more value.".$command;
+        }else{
+          $output = "Dates must be numeric values.".$command;
+        }
       }
     }else{
-      $output = "Using invalid characters. Please try again. \nHISTORY <mm/dd>";
+      $output = "Using invalid characters.".$command;
     }
-
 
   }else{
     $url = 'http://numbersapi.com/random/date';
@@ -109,6 +112,3 @@ function checkValidity($buffer,$type)
       return 0;
   }
 }
-
-
-?>
