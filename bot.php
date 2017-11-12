@@ -2,6 +2,7 @@
 
 include 'bot_tokens.php';
 include 'bot_charlotte_functions.php';
+include 'commands/recipe.php';
 
 /* Processing the Chat message */
   $input = json_decode(file_get_contents('php://input'), true); // Get the chat
@@ -35,7 +36,10 @@ if($message){
     // HISTORY [optional date] Get today in history. http://numbersapi.com/
     $h_date = trim(strstr($message," "));
     $message_to_reply = getHistoryDate($h_date);
-  }else{
+  } else if ($command  == 'recipe') {
+    $viand = trim(strstr($message, " "));
+    $message_to_reply = getRecipe($viand);
+  } else {
     $message_to_reply = getCommandList();
   }
 
