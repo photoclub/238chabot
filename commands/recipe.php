@@ -1,18 +1,18 @@
 <?php
 
+/**
+ * @Issues:
+ * 1. Set better image default
+ * 2. Add another button for load more
+ * 3. Pick at most three items
+ */
+
 $endpoint = 'http://www.recipepuppy.com/api/?';
 
-function getRecipe($viand, $sender) {
+function getRecipe($viand) {
     $resp = queryApi($viand);
-    // $prompt = "Craving for {$viand}?\n";
-    // foreach ($resp['results'] as $key => $value) {
-    //     $prompt .= "{$key} - ".$value['title']."\n";
-    // }
-    // $prompt .= 'Pick a number.';
-    // $prompt .= hasMore($viand) ? "\nOr get 'More'": '';
-    // return $prompt;
-    $response = formatAnswer($resp['results'], $sender);
-    return $response;
+    $elements = formatElements(array_slice($resp['results'], 7));
+    return formatAnswer($elements);
 }
 
 function queryApi($keyword) {
@@ -30,34 +30,34 @@ function hasMore($keyword) {
     return count(queryApi($keyword)['results']) > 0;
 }
 
-function formatAnswer($results, $sender) {
+function formatElements($results) {
     $elements = array();
     foreach ($results as $key => $value) {
         $element = [
             'title' => $value['title'],
             'item_url' => $value['href'],
-            'image_url' => $value['thumbnail'],
+            'image_url' => $value['thumbnail'] ?: "http://arifbakery-patisserie.co.uk/wp-content/themes/nevia/images/shop-01.jpg",
             'subtitle' => $value['ingredients']
         ];
+        if ($value['href']) {
+            $element['buttons'] = [[
+                'type' => 'web_url',
+                'url' => $value['href'],
+                'title' => 'Learn more'
+            ]];
+        }
         $elements[] = $element;
     }
+    return $elements;
+}
+
+function formatAnswer($elements) {
     $answer = ["attachment" => [
-        "type" => "template",
+        "type"    => "template",
         "payload" => [
             "template_type" => "list",
-            "elements" => $elements
-        ]
+            "elements"      => $elements
+        ],
     ]];
-    $answer = formatRequest($sender, $answer);
     return $answer;
 }
-
-function formatRequest($sender, $message){
-  $jsonData=[
-    'recipient' => [ 'id' => $sender ],
-    'message' => $message
-  ];
-  return json_encode($jsonData);
-}
-
-// getRecipe('adobo', 'asdf');
