@@ -78,32 +78,7 @@ class FbBot
                 'content-type' => 'application/json',
             );
             if (in_array('hi', $msgarray)) {
-                $answer = [
-                    "attachment" => [
-                        "type" => "template",
-                        "payload" => [
-                            "template_type" => "generic",
-                            "elements" => [[
-                                // We can randomize the `title` say from a list
-                                // of prepared greetings.
-                                "title" => "Hi! I'm Uno. How may I help you?",
-                                "buttons" => [[
-                                    "type" => "postback",
-                                    "title" => "Read my Blog!",
-                                    "payload" => "blog"
-                                ], [
-                                    "type" => "postback",
-                                    "title" => "Is this name male or a female?",
-                                    "payload" => "gender:ask-name"
-                                ], [
-                                    "type" => "postback",
-                                    "title" => "Time machine",
-                                    "payload" => "history"
-                                ]]
-                            ]]
-                        ]
-                    ]
-                ];
+                $answer = ['text' => "Hello! how may I help you today?"];
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
                     "attachment" => [
