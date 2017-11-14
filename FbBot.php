@@ -77,8 +77,7 @@ class FbBot
                 'content-type' => 'application/json',
             );
             if (in_array('hi', $msgarray)) {
-                $answer   = "Hello! how may I help you today?";
-                $response = ['recipient' => ['id' => $senderId], 'message' => ['text' => $answer], 'access_token' => $this->accessToken];
+                $answer = ['text' => "Hello! how may I help you today?"];
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
                     "attachment" => [
@@ -98,12 +97,7 @@ class FbBot
                                         "title"   => "Start Chatting",
                                         "payload" => "get started"]],
                             ]],
-                        ]]];
-                $response = [
-                    'recipient'    => ['id' => $senderId],
-                    'message'      => $answer,
-                    'access_token' => $this->accessToken,
-                ];
+                ]]];
             } elseif (in_array('list', $msgarray)) {
                 $answer = ["attachment" => [
                     "type"    => "template",
@@ -142,30 +136,25 @@ class FbBot
                                 ]],
                         ]],
                 ]];
-
-                $response = [
-                    'recipient'    => ['id' => $senderId],
-                    'message'      => $answer,
-                    'access_token' => $this->accessToken,
-                ];} elseif ($messageText == 'get started') {
+            } elseif ($messageText == 'get started') {
                 $answer = [
                     "text"          => "Please share your location:",
                     "quick_replies" => [
                         [
                             "content_type" => "location",
                         ],
-                    ]];
-                $response = [
-                    'recipient'    => ['id' => $senderId],
-                    'message'      => $answer,
-                    'access_token' => $this->accessToken,
-                ];} elseif (!empty($input['location'])) {
-                $answer   = ["text" => 'great you are at' . $input['location']];
-                $response = ['recipient' => ['id' => $senderId], 'message' => $answer, 'access_token' => $this->accessToken];
+                ]];
+            } elseif (!empty($input['location'])) {
+                $answer = ["text" => 'great you are at' . $input['location']];
             } elseif (!empty($messageText)) {
-                $answer   = 'I can not Understand you ask me about blogs';
-                $response = ['recipient' => ['id' => $senderId], 'message' => ['text' => $answer], 'access_token' => $this->accessToken];
+                $answer = ['text' => 'I can not Understand you ask me about blogs'];
             }
+
+            $response = [
+                'recipient' => ['id' => $senderId],
+                'message' => $answer,
+                'access_token' => $this->accessToken
+            ];
 
             $response = $client->post($url, ['query' => $response, 'headers' => $header]);
 
