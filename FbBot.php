@@ -1,6 +1,6 @@
 <?php
 require 'vendor/autoload.php';
-include 'commands/gender.php';
+include 'commands/recipe.php';
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -137,6 +137,8 @@ class FbBot
                                 ]],
                         ]],
                 ]];
+            } elseif ($msgarray[0] == 'recipe') {
+                $answer = getRecipe(implode(" ", array_slice($msgarray, 1)));
             }
             // Keep for reference
             // elseif ($messageText == '') {
