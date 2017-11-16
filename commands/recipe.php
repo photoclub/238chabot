@@ -1,17 +1,25 @@
 <?php
-
+include __DIR__ . '/../db_helper.php';
 /**
  * @Issues:
- * 1. Set better image default
- * 2. Add another button for load more
- * 3. Pick at most three items
+ * - Add another button for load more
  */
 
 $endpoint = 'http://www.recipepuppy.com/api/?';
+$sizePerRequest = 3;
+$defaultThumbnail = "http://arifbakery-patisserie.co.uk/wp-content/themes/nevia/images/shop-01.jpg";
 
-function getRecipe($viand) {
+function getRecipe($viand, $extra_context=null, $top=0) {
+    global $sizePerRequest;
     $resp = queryApi($viand);
-    $elements = formatElements(array_slice($resp['results'], 7));
+    $elements = formatElements(
+        array_slice($resp['results'], $top, $top + $sizePerRequest));
+
+    // log results to db
+    if ($extra_context) {
+        saveSessionData($extra_context["user_id"],
+            "recipe", $viand, $elements);
+    }
     return formatAnswer($elements);
 }
 
@@ -31,12 +39,13 @@ function hasMore($keyword) {
 }
 
 function formatElements($results) {
+    global $defaultThumbnail;
     $elements = array();
     foreach ($results as $key => $value) {
         $element = [
             'title' => $value['title'],
             'item_url' => $value['href'],
-            'image_url' => $value['thumbnail'] ?: "http://arifbakery-patisserie.co.uk/wp-content/themes/nevia/images/shop-01.jpg",
+            'image_url' => $value['thumbnail'] ?: $defaultThumbnail,
             'subtitle' => $value['ingredients']
         ];
         if ($value['href']) {
@@ -61,3 +70,6 @@ function formatAnswer($elements) {
     ]];
     return $answer;
 }
+
+// Example:
+// getRecipe('adobo', ['user_id' => "1234"]);
