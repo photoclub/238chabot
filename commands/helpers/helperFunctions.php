@@ -13,7 +13,7 @@ function checkValidity($buffer,$type)
     case 'phone':
       return !preg_match('/[^0-9\+\-\ ]/', $buffer);
     case 'currency':
-      return !preg_match('/[^A-Za-z]/', $buffer);
+      return !preg_match('/[^0-9\.]/', $buffer);
     default:
       return 0;
   }
