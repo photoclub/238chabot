@@ -11,23 +11,47 @@ $defaultThumbnail = "http://arifbakery-patisserie.co.uk/wp-content/themes/nevia/
 
 function getRecipe($viand, $extra_context=null, $top=0) {
     global $sizePerRequest;
-    $resp = queryApi($viand);
+    // check previous db log
+    $page = 1;
+    $top = 0;
+    if ($extra_context) {
+        $log = getUserDataForCommand($extra_context["user_id"], "recipe");
+        if ($log && $log->recipe ." ". $viand) {
+            $prevContext = (json_decode($log["context"], true))["context"];
+            $page = $prevContext["page"];
+            $top = $prevContext["top"] + $prevContext["responseCount"];
+            if ($top % $sizePerRequest != 0) {
+                // go to next page
+                $page += 1;
+                $top = 0;
+            }
+        }
+    }
+
+    $resp = queryApi($viand, $page);
     $elements = formatElements(
         array_slice($resp['results'], $top, $top + $sizePerRequest));
 
     // log results to db
     if ($extra_context) {
         saveSessionData($extra_context["user_id"],
-            "recipe", $viand, $elements);
+            "recipe", $viand, [
+                "response" => $elements,
+                "context" => [
+                    "top" => $top,
+                    "responseCount" => count($elements),
+                    "page" => $page
+                ]
+            ]);
     }
     return formatAnswer($elements);
 }
 
-function queryApi($keyword) {
+function queryApi($keyword, $page=1) {
     global $endpoint;
     $payload = array(
         'q' => $keyword,
-        'p' => 1
+        'p' => $page
     );
     $url = $endpoint . http_build_query($payload);
     $resp = json_decode(file_get_contents($url), true);
@@ -73,3 +97,4 @@ function formatAnswer($elements) {
 
 // Example:
 // getRecipe('adobo', ['user_id' => "1234"]);
+// call as many times to test pagination
