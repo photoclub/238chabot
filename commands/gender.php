@@ -8,7 +8,6 @@ function getGender($gender_name) {
     $output = '';
     $arrname = explode(' ',$gender_name);
     $arrlen = count($arrname);
-
     for($x = 0; $x < $arrlen; $x++) {
       $url = 'https://api.genderize.io/?name='.$arrname[$x];
       $proc = json_decode(file_get_contents($url), true);
@@ -21,16 +20,20 @@ function getGender($gender_name) {
         }
         $output = $output . ucfirst($name) . " is " . $prob  . "% " . $proc['gender'] . " name. This is based on ". $proc['count']. " participants.\n\n";
       }else{
-        if ($arrlen != 1){
-          $output = $output . "Name #" . ($x+1) ."\n";
-        }
+        if($arrlen != 0)
+          if ($arrlen != 1){
+            $output = $output . "Name #" . ($x+1) ."\n";
+          }
 
-        $output = $output . "Sorry! ". ucfirst($name) . " is not a recognized name.";
+          $output = $output . "Sorry! ". ucfirst($name) . " is not a recognized name.";
 
-        if($arrlen == 1){
-         $output = $output .$command . "\n\n";
+          if($arrlen == 1){
+           $output = $output .$command . "\n\n";
+          }else{
+            $output = $output . "\n\n";
+          }
         }else{
-          $output = $output . "\n\n";
+          $output = "Please input a name.".$command;
         }
       }
     }
