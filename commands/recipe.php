@@ -89,11 +89,13 @@ function formatElements($results, $viand) {
         $elements[] = $element;
     }
     if (count($elements) > 0) {
-        $lastElement = array_slice($elements, -1);
-        $lastElement[0]["buttons"][] = [
+        $lastElement = array_pop($elements);
+        $postBackBtn = [
             "type"    => "postback",
             "title"   => "View more recipes",
             "payload" => "recipe " . $viand];
+        array_push($lastElement["buttons"], $postBackBtn);
+        array_push($elements, $lastElement);
     }
     return $elements;
 }
@@ -114,7 +116,7 @@ function formatAnswer($elements) {
 }
 
 // Example:
-// getRecipe('adobo', ['user_id' => "1234"]);
+getRecipe('adobo', ['user_id' => "1234"]);
 // $arr = ["one", "two", "three", "four", "five", "six"];
 // print_r(array_slice($arr, 0, 2));
 // print_r(array_slice($arr, 2, 2));
