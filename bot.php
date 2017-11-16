@@ -1,13 +1,19 @@
 <?php
-include 'guzzle/FbBot.php';
 
-$hubVerifyToken = 'mastermaimai';
-$accessToken = 'EAABxniO6VYQBANVKSOirZB6pT7FHp2LGetRostBNQFZBn9yeY2ct2rrqtZAqqQcNPK0kJa014LmXyv7sP5Vk2K2jYs3Bn39fYwaEDp8hyIwxMwK2CVOQ6B2Qz37wFZAD1ctugY2NdZBkTSfA4roBToXVqZAN2KFWdxnLbttHcd1wZDZD';
+/* Required to setup bot to FB application messenger */
+  $access_token = 'EAABxniO6VYQBANVKSOirZB6pT7FHp2LGetRostBNQFZBn9yeY2ct2rrqtZAqqQcNPK0kJa014LmXyv7sP5Vk2K2jYs3Bn39fYwaEDp8hyIwxMwK2CVOQ6B2Qz37wFZAD1ctugY2NdZBkTSfA4roBToXVqZAN2KFWdxnLbttHcd1wZDZD';
+  $verify_token = 'mastermaimai';
 
-$bot = new FbBot();
-$bot->setHubVerifyToken($hubVerifyToken);
-$bot->setaccessToken($accessToken);
+  if(isset($_REQUEST['hub_mode']) && $_REQUEST['hub_mode'] == 'subscribe') {
+    $challenge = $_REQUEST['hub_challenge'];
+    $hub_verify_token = $_REQUEST['hub_verify_token'];
 
-$input = json_decode(file_get_contents('php://input'), true);
-$message = $bot->readMessage($input);
-$textmessage = $bot->sendMessage($message);
+    if ($hub_verify_token === $verify_token) {
+      header("HTTP/1.1 200 OK");
+      echo $challenge;
+      die;
+    }
+  }
+/* Required to setup bot to FB application messenger */
+
+?>
