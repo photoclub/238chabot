@@ -2,6 +2,10 @@
 require 'vendor/autoload.php';
 include 'commands/recipe.php';
 include 'commands/gender.php';
+include 'commands/history.php';
+include 'commands/helpers/checkValidity.php';
+
+
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -145,6 +149,8 @@ class FbBot
                 file_put_contents('test-list-recipe.txt', json_encode($answer));
             } elseif ($msgarray[0] == 'gender') {
                 $answer = getGender(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'history') {
+                $answer = getHistory(implode(" ", array_slice($msgarray, 1)));
             }
             // Keep for reference
             // elseif ($messageText == '') {
