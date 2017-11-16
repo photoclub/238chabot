@@ -1,7 +1,7 @@
 {
     "name": "bot/bot",
     "require": {
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "~6.0",
         "morris/lessql": "^0.3.4"
     }
 }

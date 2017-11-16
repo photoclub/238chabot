@@ -75,6 +75,7 @@ class FbBot
             $senderId    = $input['senderid'];
             $msgarray    = explode(' ', $messageText);
             $response    = null;
+            $answer = '';
             $header      = array(
                 'content-type' => 'application/json',
             );
