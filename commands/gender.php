@@ -1,4 +1,4 @@
 <?php
 
-$gender = 'test variable';
+$answer = ['text' => 'you are in gender'];
 
