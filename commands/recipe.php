@@ -88,16 +88,16 @@ function formatElements($results, $viand) {
         }
         $elements[] = $element;
     }
-    // @NOTE: Find a way to add a postback
-    // if (count($elements) > 0) {
-    //     $lastElement = array_pop($elements);
-    //     $postBackBtn = [
-    //         "type"    => "postback",
-    //         "title"   => "View more recipes",
-    //         "payload" => "recipe " . $viand];
-    //     array_push($lastElement["buttons"], $postBackBtn);
-    //     array_push($elements, $lastElement);
-    // }
+    // @NOTE: Maybe change this to another CTA
+    if (count($elements) > 0) {
+        $lastElement = array_pop($elements);
+        $postBackBtn = [
+            "type"    => "postback",
+            "title"   => "View more recipes",
+            "payload" => "recipe " . $viand];
+        array_push($lastElement["buttons"], $postBackBtn);
+        array_push($elements, $lastElement);
+    }
     return $elements;
 }
 
@@ -108,7 +108,7 @@ function formatAnswer($elements) {
         $answer = ["attachment" => [
             "type"    => "template",
             "payload" => [
-                "template_type" => "list",
+                "template_type" => "generic",
                 "elements"      => $elements
             ],
         ]];
@@ -117,7 +117,7 @@ function formatAnswer($elements) {
 }
 
 // Example:
-getRecipe('adobo', ['user_id' => "1234"]);
+// getRecipe('adobo', ['user_id' => "1234"]);
 // $arr = ["one", "two", "three", "four", "five", "six"];
 // print_r(array_slice($arr, 0, 2));
 // print_r(array_slice($arr, 2, 2));
