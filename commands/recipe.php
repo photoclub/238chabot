@@ -17,7 +17,8 @@ function getRecipe($viand, $extra_context=null, $top=0) {
     if ($extra_context) {
         $log = getUserDataForCommand($extra_context["user_id"], "recipe");
         if ($log && $log->recipe ." ". $viand) {
-            $prevContext = (json_decode($log["context"], true))["context"];
+            $prevContext = (json_decode($log["context"], true));
+            $prevContext = $prevContext["context"];
             $page = $prevContext["page"];
             $top = $prevContext["top"] + $prevContext["responseCount"];
             if ($top % $sizePerRequest != 0) {
