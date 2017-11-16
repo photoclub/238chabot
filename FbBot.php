@@ -2,6 +2,9 @@
 require 'vendor/autoload.php';
 include 'commands/recipe.php';
 include 'commands/gender.php';
+include 'commands/helpers/checkValidity.php';
+
+
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
