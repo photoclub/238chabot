@@ -30,8 +30,11 @@ function get_user_data($user_id) {
     global $db;
     $query = $db->sessions()
                 ->where('user_id', $user_id);
-    return json_encode($query);
+    return $query;
 }
 
+// Usage:
 // print_r(get_user_data('1234'));
-// save_session_data("12345", "gender", "gender sherlock", "{'what': 'is this'}");
+// $session_data = save_session_data("12345", "gender", "gender sherlock", "{'what': 'is this'}");
+// to access
+// print_r($session_data['recent_command']);
