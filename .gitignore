@@ -1,7 +1,11 @@
 *.sqlite3
 *.sqlite3-journal
-
-
+list-list-list.txt
+test-list-recipe.txt
+test.json
+composer-setup.php
+bin/
+bot.php  # just for server
 
 # Created by https://www.gitignore.io/api/composer
 
