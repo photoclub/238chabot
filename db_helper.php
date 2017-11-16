@@ -7,7 +7,7 @@ require_once 'vendor/autoload.php';
 
 $db = new LessQL\Database(new PDO('sqlite:cquatro.sqlite3'));
 
-function save_session_data($user_id, $command, $message, $context) {
+function saveSessionData($user_id, $command, $message, $context) {
     global $db;
     $row = $db->sessions()
               ->where('user_id', $user_id)
@@ -19,22 +19,38 @@ function save_session_data($user_id, $command, $message, $context) {
         "user_id" => $user_id,
         "recent_command" => $command,
         "message" => $message,
-        "context" => json_encode($message)
+        "context" => json_encode($context)
     ));
     $row->save();
     return $row;
 }
 
 
-function get_user_data($user_id) {
+function getUserData($user_id) {
     global $db;
     $query = $db->sessions()
-                ->where('user_id', $user_id);
+                ->where('user_id', $user_id)
+                ->fetch();
+    return $query;
+}
+
+function getUserDataForCommand($user_id, $command) {
+    global $db;
+    $query = $db->sessions()
+                ->where('user_id', $user_id)
+                ->where('recent_command', $command)
+                ->fetch();
     return $query;
 }
 
 // Usage:
-// print_r(get_user_data('1234'));
-// $session_data = save_session_data("12345", "gender", "gender sherlock", "{'what': 'is this'}");
+// returns the LessQL object
+// print_r(getUserData('1234'));
+// $session_data = saveSessionData("12345", "gender", "gender sherlock", "{'what': 'is this'}");
 // to access
 // print_r($session_data['recent_command']);
+// Display readable json format
+// $something = getUserDataForCommand('1234', 'recipe');
+// if ($something) {
+//     print_r(json_encode($something));
+// }
