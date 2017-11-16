@@ -138,9 +138,10 @@ class FbBot
                                 ]],
                         ]],
                 ]];
+                file_put_contents('list-list-list.txt', json_encode($answer));
             } elseif ($msgarray[0] == 'recipe') {
-                $extra_context = ['user_id' => $senderid];
-                $answer = getRecipe(implode(" ", array_slice($msgarray, 1)), extra_context);
+                $answer = getRecipe(implode(" ", array_slice($msgarray, 1)));
+                file_put_contents('test-list-recipe.txt', json_encode($answer));
             }
             // Keep for reference
             // elseif ($messageText == '') {
@@ -155,7 +156,7 @@ class FbBot
             //     $answer = ["text" => 'great you are at' . $input['location']];
             // }
             elseif (!empty($messageText)) {
-                $answer = ['text' => 'This works'];
+                $answer = ['text' => 'I can not Understand you ask me about blogs'];
             }
 
             $response = [
@@ -174,3 +175,4 @@ class FbBot
         }
     }
 }
+
