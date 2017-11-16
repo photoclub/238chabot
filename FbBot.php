@@ -5,6 +5,7 @@ include 'commands/gender.php';
 include 'commands/history.php';
 include 'commands/pokemon.php';
 include 'commands/ip.php';
+include 'commands/phone.php';
 include 'commands/helpers/helperFunctions.php';
 
 
@@ -109,7 +110,9 @@ class FbBot
                 $answer = getPokemon(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'ip') {
                 $answer = getIP(implode(" ", array_slice($msgarray, 1)));
-            } elseif (in_array('blog', $msgarray)) {
+            } elseif ($msgarray[0] == 'phone') {
+                $answer = getPhone(implode(" ", array_slice($msgarray, 1)));
+            }elseif (in_array('blog', $msgarray)) {
                 $answer = [
                     "attachment" => [
                         "type"    => "template",

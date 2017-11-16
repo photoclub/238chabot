@@ -18,20 +18,14 @@ function getIP($add) {
         if(array_key_exists('reserved', $proc)){
           $output = "IP Address is reserved.".$command;
         }else{
-
           foreach($proc as $key => $value) {
             $output = $output . ucfirst($key) . ': '. $value . "\n";
           }
-
           $output = $output . "\n";
-
         }
       }else{
-        $output = ( array_key_exists('reason', $proc) ? $proc['reason'] : 'Error.');
+        $output = ( array_key_exists('reason', $proc) ? $proc['reason']. ". " . $command : 'Error.');
       }
-
-
-
 
     }else{
       $output = "IP address is using invalid characters.".$command;
@@ -40,9 +34,6 @@ function getIP($add) {
     $output = "Please input IP Address.".$command;
   }
 
-
-
-  
   $answer = ['text' => $output];
   return $answer;
 }
