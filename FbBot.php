@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 include 'commands/recipe.php';
-//include 'commands/gender.php';
+include 'commands/gender.php';
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
