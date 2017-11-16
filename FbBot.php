@@ -89,7 +89,7 @@ class FbBot
             if (in_array('hi', $msgarray)) {
                 $answer = ['text' => "Hello! Welcome to Quattro Chatbot. For a list of commands type HELP"];
             } elseif ($msgarray[0] == 'recipe') {
-                $answer = getRecipe(implode(" ", array_slice($msgarray, 1)));
+                $answer = getRecipe(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
                 file_put_contents('test-list-recipe.txt', json_encode($answer));
             } elseif ($msgarray[0] == 'help') {
 
