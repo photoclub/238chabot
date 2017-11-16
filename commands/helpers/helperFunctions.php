@@ -12,6 +12,8 @@ function checkValidity($buffer,$type)
       return !preg_match('/[^0-9\.]/', $buffer);
     case 'phone':
       return !preg_match('/[^0-9\+\-\ ]/', $buffer);
+    case 'currency':
+      return !preg_match('/[^A-Za-z]/', $buffer);
     default:
       return 0;
   }
@@ -29,6 +31,7 @@ function getCommandList(){
   $output = $output . "• POKEDEX <pokemon>\n";
   $output = $output . "• IP <ip address>\n";
   $output = $output . "• PHONE <phone number>\n";
+  $output = $output . "• PHP <currency>\n";
   return $output;
 }
 
