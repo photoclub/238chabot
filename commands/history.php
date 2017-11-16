@@ -41,7 +41,9 @@ function getHistory($history_date = NULL){
               if($pass==true){
                 $url = 'http://numbersapi.com/'. $m . '/' . $d .'/date';
                 $proc = file_get_contents($url);
-                $message = "History Trivia on \n". $month_names[$m] . " " . $d ."\n----------\n";
+                $message = "****************************\n";
+                $message = $message . "History Trivia on \n". strtoupper($month_names[$m]) . " " . $d ."\n";
+                $message =  $message . "****************************\n";
                 $output = $message . $proc; 
               }
 
@@ -64,7 +66,10 @@ function getHistory($history_date = NULL){
   }else{
     $url = 'http://numbersapi.com/random/date';
     $proc = file_get_contents($url);
-    $output = "RANDOM History Trivia\n----------\n".$proc;
+    $output = "****************************\n";
+    $output = $output . "RANDOM History Trivia\n";
+    $output = $output . "****************************\n";
+    $output = $output . $proc;
   }
 
   $answer = ['text' => $output];

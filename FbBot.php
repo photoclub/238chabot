@@ -3,6 +3,7 @@ require 'vendor/autoload.php';
 include 'commands/recipe.php';
 include 'commands/gender.php';
 include 'commands/history.php';
+include 'commands/pokemon.php';
 include 'commands/helpers/checkValidity.php';
 
 
@@ -147,10 +148,19 @@ class FbBot
             } elseif ($msgarray[0] == 'recipe') {
                 $answer = getRecipe(implode(" ", array_slice($msgarray, 1)));
                 file_put_contents('test-list-recipe.txt', json_encode($answer));
+            } elseif ($msgarray[0] == 'echo') {
+                $parrot = implode(" ", array_slice($msgarray, 1));
+                if(!empty($parrot)){
+                  $answer = ['text' => $parrot];
+                }else{
+                  $answer = ['text' => "There's nothing to echo. Please try again.\nECHO <your message>"];
+                }
             } elseif ($msgarray[0] == 'gender') {
                 $answer = getGender(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'history') {
                 $answer = getHistory(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'pokedex') {
+                $answer = getPokemon(implode(" ", array_slice($msgarray, 1)));
             }
             // Keep for reference
             // elseif ($messageText == '') {
