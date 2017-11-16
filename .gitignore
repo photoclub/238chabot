@@ -5,7 +5,7 @@ test-list-recipe.txt
 test.json
 composer-setup.php
 bin/
-
+bot.php  # just for server
 
 # Created by https://www.gitignore.io/api/composer
 
