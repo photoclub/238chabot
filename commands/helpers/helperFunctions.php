@@ -10,6 +10,8 @@ function checkValidity($buffer,$type)
       return !preg_match('/[^0-9\-\/\ ]/', $buffer);
     case 'ip':
       return !preg_match('/[^0-9\.]/', $buffer);
+    case 'phone':
+      return !preg_match('/[^0-9\+\-\ ]/', $buffer);
     default:
       return 0;
   }
@@ -26,5 +28,7 @@ function getCommandList(){
   $output = $output . "  for a random trivia\n  leave date blank\n";
   $output = $output . "• POKEDEX <pokemon>\n";
   $output = $output . "• IP <ip address>\n";
+  $output = $output . "• PHONE <phone number>\n";
   return $output;
 }
+
