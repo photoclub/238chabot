@@ -37,7 +37,6 @@ function getRecipe($viand, $extra_context=null, $top=0) {
     $originalResponse = $resp['results'];
     $elements = formatElements(
         array_slice($resp['results'], $top, $sizePerRequest));
-    print_r($elements);
 
     // log results to db
     if ($extra_context) {
@@ -93,13 +92,17 @@ function formatElements($results) {
 }
 
 function formatAnswer($elements) {
-    $answer = ["attachment" => [
-        "type"    => "template",
-        "payload" => [
-            "template_type" => "list",
-            "elements"      => $elements
-        ],
-    ]];
+    if (count($elements) == 0) {
+        $answer = ["text" => "😔 Can't find recipe. Try 🍰!"];
+    } else {
+        $answer = ["attachment" => [
+            "type"    => "template",
+            "payload" => [
+                "template_type" => "list",
+                "elements"      => $elements
+            ],
+        ]];
+    }
     return $answer;
 }
 
