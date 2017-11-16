@@ -8,7 +8,7 @@ include __DIR__ . '/../db_helper.php';
  */
 
 $endpoint = 'http://www.recipepuppy.com/api/?';
-$sizePerRequest = 3;
+$sizePerRequest = 2;
 $defaultThumbnail = "http://arifbakery-patisserie.co.uk/wp-content/themes/nevia/images/shop-01.jpg";
 
 function getRecipe($viand, $extra_context=null, $top=0) {
