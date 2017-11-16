@@ -1,6 +1,14 @@
 <?php
 require 'vendor/autoload.php';
 include 'commands/recipe.php';
+include 'commands/gender.php';
+include 'commands/history.php';
+include 'commands/pokemon.php';
+include 'commands/ip.php';
+include 'commands/phone.php';
+include 'commands/helpers/helperFunctions.php';
+
+
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -74,12 +82,37 @@ class FbBot
             $senderId    = $input['senderid'];
             $msgarray    = explode(' ', $messageText);
             $response    = null;
+            $answer = '';
             $header      = array(
                 'content-type' => 'application/json',
             );
             if (in_array('hi', $msgarray)) {
-                $answer = ['text' => "Hello! how may I help you today?"];
-            } elseif (in_array('blog', $msgarray)) {
+                $answer = ['text' => "Hello! Welcome to Quattro Chatbot. For a list of commands type HELP"];
+            } elseif ($msgarray[0] == 'recipe') {
+                $answer = getRecipe(implode(" ", array_slice($msgarray, 1)));
+                file_put_contents('test-list-recipe.txt', json_encode($answer));
+            } elseif ($msgarray[0] == 'help') {
+
+                $answer = ['text' => getCommandList() ];
+
+            } elseif ($msgarray[0] == 'echo') {
+                $parrot = implode(" ", array_slice($msgarray, 1));
+                if(!empty($parrot)){
+                  $answer = ['text' => $parrot];
+                }else{
+                  $answer = ['text' => "There's nothing to echo. Please try again.\nECHO <your message>"];
+                }
+            } elseif ($msgarray[0] == 'gender') {
+                $answer = getGender(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'history') {
+                $answer = getHistory(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'pokedex') {
+                $answer = getPokemon(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'ip') {
+                $answer = getIP(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'phone') {
+                $answer = getPhone(implode(" ", array_slice($msgarray, 1)));
+            }elseif (in_array('blog', $msgarray)) {
                 $answer = [
                     "attachment" => [
                         "type"    => "template",
@@ -137,10 +170,8 @@ class FbBot
                                 ]],
                         ]],
                 ]];
-            } elseif ($msgarray[0] == 'recipe') {
-                $extra_context = ['user_id' => $senderid];
-                $answer = getRecipe(implode(" ", array_slice($msgarray, 1)), extra_context);
-            }
+                file_put_contents('list-list-list.txt', json_encode($answer));
+            } 
             // Keep for reference
             // elseif ($messageText == '') {
             //     $answer = [
@@ -154,7 +185,8 @@ class FbBot
             //     $answer = ["text" => 'great you are at' . $input['location']];
             // }
             elseif (!empty($messageText)) {
-                $answer = ['text' => 'I can not Understand you ask me about blogs'];
+
+                $answer = ['text' => 'command not found'];
             }
 
             $response = [
@@ -173,3 +205,4 @@ class FbBot
         }
     }
 }
+
