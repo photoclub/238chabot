@@ -1,5 +1,5 @@
 <?php
-include 'guzzle/FbBot.php';
+include 'FbBot.php';
 
 $hubVerifyToken = 'mastermaimai';
 $accessToken = 'EAABxniO6VYQBANVKSOirZB6pT7FHp2LGetRostBNQFZBn9yeY2ct2rrqtZAqqQcNPK0kJa014LmXyv7sP5Vk2K2jYs3Bn39fYwaEDp8hyIwxMwK2CVOQ6B2Qz37wFZAD1ctugY2NdZBkTSfA4roBToXVqZAN2KFWdxnLbttHcd1wZDZD';
