@@ -138,7 +138,8 @@ class FbBot
                         ]],
                 ]];
             } elseif ($msgarray[0] == 'recipe') {
-                $answer = getRecipe(implode(" ", array_slice($msgarray, 1)));
+                $extra_context = ['user_id' => $senderid];
+                $answer = getRecipe(implode(" ", array_slice($msgarray, 1)), extra_context);
             }
             // Keep for reference
             // elseif ($messageText == '') {
