@@ -88,15 +88,16 @@ function formatElements($results, $viand) {
         }
         $elements[] = $element;
     }
-    if (count($elements) > 0) {
-        $lastElement = array_pop($elements);
-        $postBackBtn = [
-            "type"    => "postback",
-            "title"   => "View more recipes",
-            "payload" => "recipe " . $viand];
-        array_push($lastElement["buttons"], $postBackBtn);
-        array_push($elements, $lastElement);
-    }
+    // @NOTE: Find a way to add a postback
+    // if (count($elements) > 0) {
+    //     $lastElement = array_pop($elements);
+    //     $postBackBtn = [
+    //         "type"    => "postback",
+    //         "title"   => "View more recipes",
+    //         "payload" => "recipe " . $viand];
+    //     array_push($lastElement["buttons"], $postBackBtn);
+    //     array_push($elements, $lastElement);
+    // }
     return $elements;
 }
 
