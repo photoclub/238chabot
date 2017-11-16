@@ -155,7 +155,7 @@ class FbBot
             //     $answer = ["text" => 'great you are at' . $input['location']];
             // }
             elseif (!empty($messageText)) {
-                $answer = ['text' => 'I can not Understand you ask me about blogs'];
+                $answer = ['text' => 'This works'];
             }
 
             $response = [
