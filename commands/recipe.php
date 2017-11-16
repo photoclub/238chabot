@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 include __DIR__ . '/../db_helper.php';
 /**
  * @Issues:
@@ -29,6 +31,8 @@ function getRecipe($viand, $extra_context=null, $top=0) {
         }
     }
 
+    var_dump($viand);
+    var_dump($page);
     $resp = queryApi($viand, $page);
     $elements = formatElements(
         array_slice($resp['results'], $top, $top + $sizePerRequest));
