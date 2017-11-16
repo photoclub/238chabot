@@ -1,5 +1,6 @@
 <?php
 require 'vendor/autoload.php';
+include 'commands/recipe.php';
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -77,8 +78,7 @@ class FbBot
                 'content-type' => 'application/json',
             );
             if (in_array('hi', $msgarray)) {
-                $answer   = "Hello! how may I help you today?";
-                $response = ['recipient' => ['id' => $senderId], 'message' => ['text' => $answer], 'access_token' => $this->accessToken];
+                $answer = ['text' => "Hello! how may I help you today?"];
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
                     "attachment" => [
@@ -98,12 +98,7 @@ class FbBot
                                         "title"   => "Start Chatting",
                                         "payload" => "get started"]],
                             ]],
-                        ]]];
-                $response = [
-                    'recipient'    => ['id' => $senderId],
-                    'message'      => $answer,
-                    'access_token' => $this->accessToken,
-                ];
+                ]]];
             } elseif (in_array('list', $msgarray)) {
                 $answer = ["attachment" => [
                     "type"    => "template",
@@ -142,30 +137,31 @@ class FbBot
                                 ]],
                         ]],
                 ]];
-
-                $response = [
-                    'recipient'    => ['id' => $senderId],
-                    'message'      => $answer,
-                    'access_token' => $this->accessToken,
-                ];} elseif ($messageText == 'get started') {
-                $answer = [
-                    "text"          => "Please share your location:",
-                    "quick_replies" => [
-                        [
-                            "content_type" => "location",
-                        ],
-                    ]];
-                $response = [
-                    'recipient'    => ['id' => $senderId],
-                    'message'      => $answer,
-                    'access_token' => $this->accessToken,
-                ];} elseif (!empty($input['location'])) {
-                $answer   = ["text" => 'great you are at' . $input['location']];
-                $response = ['recipient' => ['id' => $senderId], 'message' => $answer, 'access_token' => $this->accessToken];
-            } elseif (!empty($messageText)) {
-                $answer   = 'I can not Understand you ask me about blogs';
-                $response = ['recipient' => ['id' => $senderId], 'message' => ['text' => $answer], 'access_token' => $this->accessToken];
+            } elseif ($msgarray[0] == 'recipe') {
+                $extra_context = ['user_id' => $senderid];
+                $answer = getRecipe(implode(" ", array_slice($msgarray, 1)), extra_context);
             }
+            // Keep for reference
+            // elseif ($messageText == '') {
+            //     $answer = [
+            //         "text"          => "Please share your location:",
+            //         "quick_replies" => [
+            //             [
+            //                 "content_type" => "location",
+            //             ],
+            //     ]];
+            // } elseif (!empty($input['location'])) {
+            //     $answer = ["text" => 'great you are at' . $input['location']];
+            // }
+            elseif (!empty($messageText)) {
+                $answer = ['text' => 'I can not Understand you ask me about blogs'];
+            }
+
+            $response = [
+                'recipient' => ['id' => $senderId],
+                'message' => $answer,
+                'access_token' => $this->accessToken
+            ];
 
             $response = $client->post($url, ['query' => $response, 'headers' => $header]);
 
