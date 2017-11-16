@@ -7,6 +7,7 @@ include 'commands/pokemon.php';
 include 'commands/ip.php';
 include 'commands/phone.php';
 include 'commands/php.php';
+include 'commands/university.php';
 include 'commands/helpers/helperFunctions.php';
 
 
@@ -115,6 +116,8 @@ class FbBot
                 $answer = getPhone(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'php') {
                 $answer = getPhp(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'university') {
+                $answer = getUniversity(implode(" ", array_slice($msgarray, 1)));
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
                     "attachment" => [
