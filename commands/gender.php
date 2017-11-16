@@ -1,4 +1,4 @@
 <?php
 
-echo "here";
+$gender = 'test variable';
 
