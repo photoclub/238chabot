@@ -23,7 +23,9 @@ function getRecipe($viand, $extra_context=null, $top=0) {
             $prevContext = $prevContext["context"];
             $page = $prevContext["page"];
             $top = $prevContext["top"] + $prevContext["responseCount"];
-            if ($top % $sizePerRequest != 0) {
+            $originalResponseCount = $prevContext["originalResponseCount"];
+            if ($prevContext["responseCount"] % $sizePerRequest != 0 ||
+                $top >= $originalResponseCount) {
                 // go to next page
                 $page += 1;
                 $top = 0;
@@ -31,11 +33,11 @@ function getRecipe($viand, $extra_context=null, $top=0) {
         }
     }
 
-    var_dump($viand);
-    var_dump($page);
     $resp = queryApi($viand, $page);
+    $originalResponse = $resp['results'];
     $elements = formatElements(
-        array_slice($resp['results'], $top, $top + $sizePerRequest));
+        array_slice($resp['results'], $top, $sizePerRequest));
+    print_r($elements);
 
     // log results to db
     if ($extra_context) {
@@ -45,7 +47,8 @@ function getRecipe($viand, $extra_context=null, $top=0) {
                 "context" => [
                     "top" => $top,
                     "responseCount" => count($elements),
-                    "page" => $page
+                    "page" => $page,
+                    "originalResponseCount" => count($originalResponse)
                 ]
             ]);
     }
@@ -102,4 +105,8 @@ function formatAnswer($elements) {
 
 // Example:
 // getRecipe('adobo', ['user_id' => "1234"]);
+// $arr = ["one", "two", "three", "four", "five", "six"];
+// print_r(array_slice($arr, 0, 2));
+// print_r(array_slice($arr, 2, 2));
+// print_r(array_slice($arr, 4, 2));
 // call as many times to test pagination
