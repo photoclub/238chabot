@@ -6,12 +6,21 @@ function getPwned($email) {
 
   if(!empty($email)){
     if(checkValidity($email, 'email') == 1){
-      $output = "Adi pwned";
+      $output = '';
+      $url = 'https://haveibeenpwned.com/api/v2/breachedaccount/charlotte.efren@gmail.com';
+      $proc = json_decode(file_get_contents($url), true);
+
+      file_put_contents('test-pwned.txt', $answer);
+
+
+
+      $output = $proc[0]['Title'];
+
     }else{
-      $output = "Phone Number is using invalid characters.".$command;
+      $output = "Email Address is invalid.".$command;
     }
   }else{
-    $output = "Please input Phone Number.".$command;
+    $output = "Please input Email Address.".$command;
   }
 
   $answer = ['text' => $output];

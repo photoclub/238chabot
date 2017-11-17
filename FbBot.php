@@ -8,7 +8,8 @@ include 'commands/ip.php';
 include 'commands/phone.php';
 include 'commands/php.php';
 include 'commands/university.php';
-include 'commands/imdb.php';
+//include 'commands/imdb.php';
+include 'commands/pwned.php';
 include 'commands/helpers/helperFunctions.php';
 
 
@@ -25,7 +26,7 @@ class FbBot
 
     public function __construct()
     {
-        $this->imdb = new IMDB();
+        //$this->imdb = new IMDB();
     }
 
     public function setHubVerifyToken($value)

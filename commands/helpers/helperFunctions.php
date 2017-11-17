@@ -15,7 +15,11 @@ function checkValidity($buffer,$type)
     case 'currency':
       return !preg_match('/[^A-Za-z\,\ ]/', $buffer);
     case 'email':
-      return filter_var($buffer, FILTER_VALIDATE_EMAIL);
+      if (filter_var($buffer, FILTER_VALIDATE_EMAIL)){
+        return 1;
+      }else{
+        return 0;
+      }
     default:
       return 0;
   }
