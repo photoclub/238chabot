@@ -21,10 +21,10 @@ class FbBot
     private $accessToken    = null;
     private $tokken         = false;
     protected $client       = null;
-    protected $imdb = new IMDB();
 
     public function __construct()
     {
+        $this->$imdb = new IMDB();
     }
 
     public function setHubVerifyToken($value)
