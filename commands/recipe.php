@@ -36,7 +36,7 @@ function getRecipe($viand, $extra_context=null, $top=0) {
     $resp = queryApi($viand, $page);
     $originalResponse = $resp['results'];
     $elements = formatElements(
-        array_slice($resp['results'], $top, $sizePerRequest));
+        array_slice($resp['results'], $top, $sizePerRequest), $viand);
 
     // log results to db
     if ($extra_context) {
@@ -69,7 +69,7 @@ function hasMore($keyword) {
     return count(queryApi($keyword)['results']) > 0;
 }
 
-function formatElements($results) {
+function formatElements($results, $viand) {
     global $defaultThumbnail;
     $elements = array();
     foreach ($results as $key => $value) {
@@ -88,6 +88,16 @@ function formatElements($results) {
         }
         $elements[] = $element;
     }
+    // @NOTE: Maybe change this to another CTA
+    if (count($elements) > 0) {
+        $lastElement = array_pop($elements);
+        $postBackBtn = [
+            "type"    => "postback",
+            "title"   => "View more recipes",
+            "payload" => "recipe " . $viand];
+        array_push($lastElement["buttons"], $postBackBtn);
+        array_push($elements, $lastElement);
+    }
     return $elements;
 }
 
@@ -98,7 +108,7 @@ function formatAnswer($elements) {
         $answer = ["attachment" => [
             "type"    => "template",
             "payload" => [
-                "template_type" => "list",
+                "template_type" => "generic",
                 "elements"      => $elements
             ],
         ]];
