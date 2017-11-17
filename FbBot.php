@@ -117,7 +117,7 @@ class FbBot
             } elseif ($msgarray[0] == 'php') {
                 $answer = getPhp(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'php') {
-                $answer = getMovieRating(implode(" ", array_slice($msgarray, 1)));
+                $answer = $imdb->getMovieRating(implode(" ", array_slice($msgarray, 1)));
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
                     "attachment" => [
