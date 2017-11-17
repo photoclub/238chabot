@@ -12,10 +12,10 @@ function getTrump($keyword) {
 
       if(!empty($proc['count'] != 0)){
         $output = $output . "****************************\n";
-        $output = $output . "TRUMP QUOTE ABOUT \n" . strtoupper($keyword) . "\n";
+        $output = $output . "TRUMP's\nQUOTE ABOUT \n" . strtoupper($keyword) . "\n";
         $output = $output . "****************************\n";
-
-        $rand = rand(0, ($proc['count']-1));
+        $count = intval($proc['count']) - 1;
+        $rand = rand(0, $count);
         $output = $output . $proc['_embedded']['quotes'][$rand]['value'];
       }else{
         $output = "Search keyword is not valid.".$command;

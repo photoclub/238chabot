@@ -18,11 +18,10 @@ function getPHP($curr) {
         $date = strtotime($proc['date']);
 
         $output = $output . "****************************\n";
-        $output = $output . 'PHP to ' . $curr . "\n";
         $output = $output . "Currency Exchange for \n";
         $output = $output . date("F jS, Y", $date )."\n";
         $output = $output . "****************************\n";
-
+        $output = $output . 'PHP to ' . $curr . "\n";
         $output = $output . "Rate: ".$proc['rates'][$curr] . "\n";
       }else{
         if($curr == 'PHP'){
