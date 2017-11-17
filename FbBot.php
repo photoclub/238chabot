@@ -9,7 +9,6 @@ include 'commands/phone.php';
 include 'commands/php.php';
 include 'commands/university.php';
 include 'commands/imdb.php';
-
 include 'commands/helpers/helperFunctions.php';
 
 
@@ -23,8 +22,10 @@ class FbBot
     private $accessToken    = null;
     private $tokken         = false;
     protected $client       = null;
+
     public function __construct()
     {
+        $this->imdb = new IMDB();
     }
 
     public function setHubVerifyToken($value)
@@ -181,7 +182,7 @@ class FbBot
                         ]],
                 ]];
                 file_put_contents('list-list-list.txt', json_encode($answer));
-            } 
+            }
             // Keep for reference
             // elseif ($messageText == '') {
             //     $answer = [
