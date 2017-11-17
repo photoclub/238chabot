@@ -18,8 +18,9 @@ function getMovieRating($title, $extra_context=null) {
     }
 
     $elements = array_slice($elements, $top, $sizePerRequest);
-    print_r($elements);
-    return $elements;
+    $answer = formatAnswer($elements);
+    // print_r($answer);
+    return $answer;
 }
 
 
@@ -57,6 +58,7 @@ function formatElement($detail) {
     return $element;
 }
 
+
 function getRatings($detail) {
     $rating = "";
     foreach ($detail["Ratings"] as $key => $value) {
@@ -66,4 +68,20 @@ function getRatings($detail) {
 }
 
 
-getMovieRating("Batman");
+function formatAnswer($elements) {
+    if (count($elements) == 0) {
+        $answer = ["text" => "😔 Can't find movie. Try 'Batman'!"];
+    } else {
+        $answer = ["attachment" => [
+            "type"    => "template",
+            "payload" => [
+                "template_type" => "generic",
+                "elements"      => $elements
+            ],
+        ]];
+    }
+    return $answer;
+}
+
+
+// getMovieRating("Batman");
