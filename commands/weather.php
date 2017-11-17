@@ -34,9 +34,7 @@ function getWeather($loc) {
   }
 
   $answer = ['text' => $output];
-  //return $answer;
-
-  return $output;
+  return $answer;
 }
 
 function k_to_c($temp) {
