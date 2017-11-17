@@ -10,6 +10,7 @@ include 'commands/php.php';
 include 'commands/university.php';
 include 'commands/imdb.php';
 include 'commands/synonyms.php';
+include 'commands/trump.php';
 include 'commands/helpers/helperFunctions.php';
 
 
