@@ -42,7 +42,7 @@ function getCommandList(){
   $output = $output . "• UNIVERSITY <name>\n";
   $output = $output . "• RECIPE <viand>\n";
   $output = $output . "• IMDB <movie title>\n";
-  $output = $output . "• PWNED <email address>\n";
+  $output = $output . "• SYNONYMS <word>\n";
   return $output;
 }
 
