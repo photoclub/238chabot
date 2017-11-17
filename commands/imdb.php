@@ -89,5 +89,5 @@ class IMDB {
 
 }
 
-$imdb = new IMDB();
-$imdb->getMovieRating("Batman");
+// $imdb = new IMDB();
+// $imdb->getMovieRating("Batman");

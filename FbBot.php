@@ -15,6 +15,8 @@ include 'commands/helpers/helperFunctions.php';
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
+$imdb = new IMDB();
+
 class FbBot
 {
     private $hubVerifyToken = null;
