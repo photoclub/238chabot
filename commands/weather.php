@@ -12,7 +12,7 @@ function getWeather($loc) {
 
       if(!empty($proc['weather'])){
         $output = "****************************\n";
-        $output = $output . "WEATHER CONDITIONS\n" . strtoupper($loc) . "\n";
+        $output = $output . "WEATHER CONDITIONS\n" . strtoupper($loc) . " ";
         $output = $output . '(' . $proc['sys']['country'] . ')' . "\n";
         $output = $output . strtoupper($proc['weather'][0]['main']) . "\n";
         $output = $output . "****************************\n";
@@ -27,10 +27,10 @@ function getWeather($loc) {
         $output = "Location not found.".$command;
       }
     }else{
-      $output = "Search keyword is using invalid characters.".$command;
+      $output = "Location name is using invalid characters.".$command;
     }
   }else{
-    $output = "Please input a search keyword.".$command;
+    $output = "Please input location name.".$command;
   }
 
   $answer = ['text' => $output];
