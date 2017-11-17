@@ -18,7 +18,7 @@ function getRecipe($viand, $extra_context=null, $top=0) {
     $top = 0;
     if ($extra_context) {
         $log = getUserDataForCommand($extra_context["user_id"], "recipe");
-        if ($log && $log->recipe ." ". $viand) {
+        if ($log && $log->recipe ." ". $viand) { // condition is buggy
             $prevContext = (json_decode($log["context"], true));
             $prevContext = $prevContext["context"];
             $page = $prevContext["page"];

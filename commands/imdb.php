@@ -1,5 +1,5 @@
 <?php
-
+include __DIR__ . '/../db_helper.php';
 $endpoint = "http://www.omdbapi.com/?apikey=86030ddd&";
 $defaultThumb = "https://cdn.theunlockr.com/wp-content/uploads/2012/04/IMDb.jpg";
 $sizePerRequest = 3;
@@ -13,16 +13,61 @@ class IMDB {
         global $sizePerRequest;
         $page = 1;
         $top = 0;
-        $respSearch = $this->querySearch($title, $page);
-
-        $elements = [];
-        foreach ($respSearch["Search"] as $key => $value) {
-            $detail = $this->queryDetail($value["imdbID"]);
-            $elements[] = $this->formatElement($detail);
+        if ($extra_context) {
+            $log = getUserDataForCommand($extra_context["user_id"], "imdb");
+            if ($log && $log->recent_command == "imdb ".$title) {
+                $prevContext = (json_decode($log["context"], true));
+                $prevContext = $prevContext["context"];
+                $page = $prevContext["page"];
+                $top = $prevContext["top"] + $prevContext["responseCount"];
+                $originalResponseCount = $prevContext["originalResponseCount"];
+                if ($prevContext["responseCount"] % $sizePerRequest != 0 ||
+                    $top >= $originalResponseCount) {
+                    // go to next page
+                    $page += 1;
+                    $top = 0;
+                }
+            }
         }
 
-        $elements = array_slice($elements, $top, $sizePerRequest);
+        $respSearch = $this->querySearch($title, $page);
+
+        $originalResponse = [];
+        foreach ($respSearch["Search"] as $key => $value) {
+            $detail = $this->queryDetail($value["imdbID"]);
+            $originalResponse[] = $this->formatElement($detail);
+        }
+        $elements = array_slice($originalResponse, $top, $sizePerRequest);
+
+        if (count($elements) > 0) {
+            $lastElement = array_pop($elements);
+            $postBackBtn = [
+                "type"    => "postback",
+                "title"   => "View more reviews",
+                "payload" => "imdb " . $title];
+            array_push($lastElement["buttons"], $postBackBtn);
+            array_push($elements, $lastElement);
+        }
+
         $answer = $this->formatAnswer($elements);
+
+        if ($extra_context) {
+            saveSessionData(
+                $extra_context["user_id"],
+                "imdb ".$title,
+                $title,
+                [
+                    "response" => $elements,
+                    "context" => [
+                        "top" => $top,
+                        "responseCount" => count($elements),
+                        "page" => $page,
+                        "originalResponseCount" => count($originalResponse)
+                    ]
+                ]
+            );
+        }
+
         // print_r($answer);
         return $answer;
     }
@@ -89,5 +134,5 @@ class IMDB {
 
 }
 
-// $imdb = new IMDB();
-// $imdb->getMovieRating("Batman");
+$imdb = new IMDB();
+$imdb->getMovieRating("Batman", ['user_id' => "1234"]);
