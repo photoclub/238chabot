@@ -12,20 +12,3 @@ $input = json_decode(file_get_contents('php://input'), true);
 $message = $bot->readMessage($input);
 $textmessage = $bot->sendMessage($message);
 
-
-$uni ='university of the philippines';
-$xxx = 'http://universities.hipolabs.com/search?name='. urlencode($uni);
-$ttt = json_decode(file_get_contents($xxx), true);
-
-if(!empty($ttt)){
-$output = '';
-$output = $output . "****************************\n";
-$output = $output . "UNIVERSITY:\n" . ucwords($uni) . "\n";
-$output = $output . "****************************\n";
-
-	for($x = 0; $x < count($ttt); $x++ ){
-	  $output = $output . "Name: " . $ttt[$x]['name'] . "\nCountry: ". $ttt[$x]['country'] . "\nWeb Pages: ". $ttt[$x]['web_pages'][0] . "\n";
-	}
-}
-
-echo $output;
