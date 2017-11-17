@@ -24,7 +24,7 @@ function getMovieRating($title, $extra_context=null) {
 }
 
 
-function querySearch($title, $page) {
+private function querySearch($title, $page) {
     global $endpoint;
     $payload = ["s" => $title, "page" => $page];
     $url = $endpoint . http_build_query($payload);
@@ -33,7 +33,7 @@ function querySearch($title, $page) {
 }
 
 
-function queryDetail($imdbID) {
+private function queryDetail($imdbID) {
     global $endpoint;
     $payload = ["i" => $imdbID];
     $url = $endpoint . http_build_query($payload);
@@ -42,7 +42,7 @@ function queryDetail($imdbID) {
 }
 
 
-function formatElement($detail) {
+private function formatElement($detail) {
     global $defaultThumb;
     $element = [
         "title" => $detail["Title"],
@@ -59,7 +59,7 @@ function formatElement($detail) {
 }
 
 
-function getRatings($detail) {
+private function getRatings($detail) {
     $rating = "";
     foreach ($detail["Ratings"] as $key => $value) {
         $rating .= $value["Source"] ." ⭐ ". $value["Value"] ."\n";
@@ -68,7 +68,7 @@ function getRatings($detail) {
 }
 
 
-function formatAnswer($elements) {
+private function formatAnswer($elements) {
     if (count($elements) == 0) {
         $answer = ["text" => "😔 Can't find movie. Try 'Batman'!"];
     } else {
