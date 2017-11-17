@@ -15,7 +15,7 @@ class IMDB {
         $top = 0;
         if ($extra_context) {
             $log = getUserDataForCommand($extra_context["user_id"], "imdb");
-            if ($log && $log->recent_command == "imdb ".$title) {
+            if ($log && $log->recent_command == "imdb" && $log->message == $title) {
                 $prevContext = (json_decode($log["context"], true));
                 $prevContext = $prevContext["context"];
                 $page = $prevContext["page"];
@@ -54,7 +54,7 @@ class IMDB {
         if ($extra_context) {
             saveSessionData(
                 $extra_context["user_id"],
-                "imdb ".$title,
+                "imdb",
                 $title,
                 [
                     "response" => $elements,
@@ -68,7 +68,7 @@ class IMDB {
             );
         }
 
-        // print_r($answer);
+        // print_r(json_encode($answer));
         return $answer;
     }
 
