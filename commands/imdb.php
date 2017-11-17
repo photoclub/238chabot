@@ -1,16 +1,16 @@
 <?php
 include_once __DIR__ . '/../db_helper.php';
-$endpoint = "http://www.omdbapi.com/?apikey=86030ddd&";
-$defaultThumb = "https://cdn.theunlockr.com/wp-content/uploads/2012/04/IMDb.jpg";
-$sizePerRequest = 3;
+
 
 
 class IMDB {
 
-    function __construct() {}
+    function __construct() {
+        $this->endpoint = "http://www.omdbapi.com/?apikey=86030ddd&";
+    }
 
     public function getMovieRating($title, $extra_context=null) {
-        global $sizePerRequest;
+        $sizePerRequest = 3;
         $page = 1;
         $top = 0;
         if ($extra_context) {
@@ -74,25 +74,23 @@ class IMDB {
 
 
     private function querySearch($title, $page) {
-        global $endpoint;
         $payload = ["s" => $title, "page" => $page];
-        $url = $endpoint . http_build_query($payload);
+        $url = $this->endpoint  . http_build_query($payload);
         $resp = json_decode(file_get_contents($url), true);
         return $resp;
     }
 
 
     private function queryDetail($imdbID) {
-        global $endpoint;
         $payload = ["i" => $imdbID];
-        $url = $endpoint . http_build_query($payload);
+        $url = $this->endpoint  . http_build_query($payload);
         $resp = json_decode(file_get_contents($url), true);
         return $resp;
     }
 
 
     private function formatElement($detail) {
-        global $defaultThumb;
+        $defaultThumb = "https://cdn.theunlockr.com/wp-content/uploads/2012/04/IMDb.jpg";
         if ($detail["Poster"] == "N\/A") {
             $detail["Poster"] = $defaultThumb;
         }
