@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../db_helper.php';
+include_once __DIR__ . '/../db_helper.php';
 $endpoint = "http://www.omdbapi.com/?apikey=86030ddd&";
 $defaultThumb = "https://cdn.theunlockr.com/wp-content/uploads/2012/04/IMDb.jpg";
 $sizePerRequest = 3;
