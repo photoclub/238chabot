@@ -11,3 +11,4 @@ $bot->setaccessToken($accessToken);
 $input = json_decode(file_get_contents('php://input'), true);
 $message = $bot->readMessage($input);
 $textmessage = $bot->sendMessage($message);
+

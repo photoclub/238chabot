@@ -4,11 +4,9 @@ function getGender($gender_name) {
   $command = " Please try again.\nGENDER <name>";
   $gender_name = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $gender_name)));
 
-
-  if(checkValidity($gender_name, 'name') == 1){
-    $output = '';
-
-    if(!empty($gender_name)){
+  if(!empty($gender_name)){
+    if(checkValidity($gender_name, 'name') == 1){
+      $output = '';
       $arrname = explode(' ',$gender_name);
       $arrlen = count($arrname);
       $output = $output . "****************************\n";
@@ -43,10 +41,10 @@ function getGender($gender_name) {
         }
       }
     }else{
-      $output = "Please input name.".$command;
+      $output = "Name is using invalid characters.".$command;
     }
   }else{
-    $output = "Name is using invalid characters.".$command;
+    $output = "Please input name.".$command;
   }
   
   $answer = ['text' => $output];

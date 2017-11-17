@@ -4,9 +4,8 @@ function getPokemon($pokemon) {
   $command = " Please try again.\nPOKEDEX <pokemon>";
   $pokemon = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $pokemon)));
 
-  if(checkValidity($pokemon, 'name') == 1){
-    if(!empty($pokemon)){
-
+  if(!empty($pokemon)){
+    if(checkValidity($pokemon, 'name') == 1){
       $url = 'https://pokeapi.co/api/v2/pokemon/'.$pokemon;
       $proc = json_decode(file_get_contents($url), true);
 
@@ -67,10 +66,10 @@ function getPokemon($pokemon) {
       }
 
     }else{
-      $output = "Please input Pokemon's name.".$command;
+      $output = "Pokemon name is using invalid characters.".$command;
     }
   }else{
-    $output = "Pokemon name is using invalid characters.".$command;
+    $output = "Please input Pokemon's name.".$command;
   }
   
   $answer = ['text' => $output];
