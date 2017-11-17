@@ -16,6 +16,8 @@ function checkValidity($buffer,$type)
       return !preg_match('/[^A-Za-z\,\ ]/', $buffer);
     case 'word':
       return !preg_match('/[^A-Za-z\-\ ]/', $buffer);
+    case 'weather':
+      return !preg_match('/[^A-Za-z\-\,\ ]/', $buffer);
     default:
       return 0;
   }

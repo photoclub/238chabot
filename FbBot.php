@@ -11,6 +11,7 @@ include 'commands/university.php';
 include 'commands/imdb.php';
 include 'commands/synonyms.php';
 include 'commands/trump.php';
+include 'commands/weather.php';
 include 'commands/helpers/helperFunctions.php';
 
 
@@ -121,6 +122,8 @@ class FbBot
                 $answer = getPhone(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'php') {
                 $answer = getPhp(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'weather') {
+                $answer = getWeather(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'university') {
                 $answer = getUniversity(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'trump') {
@@ -203,7 +206,7 @@ class FbBot
             // }
             elseif (!empty($messageText)) {
 
-                $answer = ['text' => 'command not found'];
+                $answer = ['text' => 'Command not found. Use HELP to check available commands.'];
             }
 
             $response = [
