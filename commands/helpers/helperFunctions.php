@@ -15,7 +15,7 @@ function checkValidity($buffer,$type)
     case 'currency':
       return !preg_match('/[^A-Za-z\,\ ]/', $buffer);
     case 'word':
-      return !preg_match('/[^A-Za-z\-\/'\ ]/', $buffer);
+      return !preg_match('/[^A-Za-z\-\ ]/', $buffer);
     default:
       return 0;
   }
