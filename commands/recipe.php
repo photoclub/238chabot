@@ -6,13 +6,8 @@ include __DIR__ . '/../db_helper.php';
  * @Issues:
  * - Add another button for load more
  */
-
-$endpoint = 'http://www.recipepuppy.com/api/?';
-$sizePerRequest = 2;
-$defaultThumbnail = "http://arifbakery-patisserie.co.uk/wp-content/themes/nevia/images/shop-01.jpg";
-
 function getRecipe($viand, $extra_context=null, $top=0) {
-    global $sizePerRequest;
+    $sizePerRequest = 2;
     // check previous db log
     $page = 1;
     $top = 0;
@@ -55,13 +50,14 @@ function getRecipe($viand, $extra_context=null, $top=0) {
 }
 
 function queryApi($keyword, $page=1) {
-    global $endpoint;
+    $endpoint = 'http://www.recipepuppy.com/api/?';
     $payload = array(
         'q' => $keyword,
         'p' => $page
     );
     $url = $endpoint . http_build_query($payload);
     $resp = json_decode(file_get_contents($url), true);
+    file_put_contents('test-response.txt', [$resp, $url]);
     return $resp;
 }
 
@@ -70,7 +66,7 @@ function hasMore($keyword) {
 }
 
 function formatElements($results, $viand) {
-    global $defaultThumbnail;
+    $defaultThumbnail = "http://arifbakery-patisserie.co.uk/wp-content/themes/nevia/images/shop-01.jpg";
     $elements = array();
     foreach ($results as $key => $value) {
         $element = [
