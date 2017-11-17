@@ -93,6 +93,9 @@ class IMDB {
 
     private function formatElement($detail) {
         global $defaultThumb;
+        if ($detail["Poster"] == "N\/A") {
+            $detail["Poster"] = $defaultThumb;
+        }
         $element = [
             "title" => $detail["Title"],
             "item_url" => "http://www.imdb.com/title/". $detail["imdbID"] ."/",
