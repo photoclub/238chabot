@@ -8,7 +8,8 @@ include 'commands/ip.php';
 include 'commands/phone.php';
 include 'commands/php.php';
 include 'commands/university.php';
-include 'commands/imdb.php';
+//include 'commands/imdb.php';
+include 'commands/synonyms.php';
 include 'commands/helpers/helperFunctions.php';
 
 
@@ -25,7 +26,7 @@ class FbBot
 
     public function __construct()
     {
-        $this->imdb = new IMDB();
+        //$this->imdb = new IMDB();
     }
 
     public function setHubVerifyToken($value)
@@ -123,6 +124,8 @@ class FbBot
                 $answer = getUniversity(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'imdb') {
                 $answer = $this->imdb->getMovieRating(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
+            } elseif ($msgarray[0] == 'synonyms') {
+                $answer = getSynonyms(implode(" ", array_slice($msgarray, 1)));
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
                     "attachment" => [

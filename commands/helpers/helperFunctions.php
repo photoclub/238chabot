@@ -14,6 +14,12 @@ function checkValidity($buffer,$type)
       return !preg_match('/[^0-9\+\-\ ]/', $buffer);
     case 'currency':
       return !preg_match('/[^A-Za-z\,\ ]/', $buffer);
+    case 'email':
+      if (filter_var($buffer, FILTER_VALIDATE_EMAIL)){
+        return 1;
+      }else{
+        return 0;
+      }
     default:
       return 0;
   }
@@ -24,6 +30,7 @@ function getCommandList(){
   $output = "****************************\n";
   $output = $output . "HELP COMMANDS \n";
   $output = $output . "****************************\n";
+  $output = $output . "• HELP\n";
   $output = $output . "• ECHO <your message>\n";
   $output = $output . "• GENDER <name>\n";
   $output = $output . "• HISTORY <mm/dd>\n";
@@ -32,6 +39,10 @@ function getCommandList(){
   $output = $output . "• IP <ip address>\n";
   $output = $output . "• PHONE <phone number>\n";
   $output = $output . "• PHP <currency>\n";
+  $output = $output . "• UNIVERSITY <name>\n";
+  $output = $output . "• RECIPE <viand>\n";
+  $output = $output . "• IMDB <movie title>\n";
+  $output = $output . "• SYNONYMS <word>\n";
   return $output;
 }
 
