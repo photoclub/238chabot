@@ -15,14 +15,14 @@ include 'commands/helpers/helperFunctions.php';
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-$imdb = new IMDB();
-
 class FbBot
 {
     private $hubVerifyToken = null;
     private $accessToken    = null;
     private $tokken         = false;
     protected $client       = null;
+    protected $imdb = new IMDB();
+
     public function __construct()
     {
     }
@@ -119,7 +119,7 @@ class FbBot
             } elseif ($msgarray[0] == 'php') {
                 $answer = getPhp(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'imdb') {
-                $answer = $imdb->getMovieRating(implode(" ", array_slice($msgarray, 1)));
+                $answer = $this->$imdb->getMovieRating(implode(" ", array_slice($msgarray, 1)));
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
                     "attachment" => [
