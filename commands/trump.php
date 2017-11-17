@@ -28,6 +28,5 @@ function getTrump($keyword) {
   }
 
   $answer = ['text' => $output];
-  //return $answer;
-  return $output;
+  return $answer;
 }
