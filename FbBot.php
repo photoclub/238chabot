@@ -116,7 +116,7 @@ class FbBot
                 $answer = getPhone(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'php') {
                 $answer = getPhp(implode(" ", array_slice($msgarray, 1)));
-            } elseif ($msgarray[0] == 'php') {
+            } elseif ($msgarray[0] == 'imdb') {
                 $answer = $imdb->getMovieRating(implode(" ", array_slice($msgarray, 1)));
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
