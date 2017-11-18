@@ -38,6 +38,7 @@ class University {
 
     private function formatElement($item) {
         $item_url = "http://universities.hipolabs.com/search?"; // change default
+        $image_url = "http://www.filipiknow.net/wp-content/uploads/2015/07/University-of-the-Philippines-Cebu.png";
         if (count($item["domains"]) > 0) {
             $item_url = $item["domains"][0];
         } else if (count($item["web_pages"]) > 0) {
@@ -46,6 +47,7 @@ class University {
         $element = [
             "title" => $item["name"],
             "item_url" => $item_url,
+            "image_url" => $image_url,
             "buttons" => [[
                 "type" => "web_url",
                 "url"  => $item_url,
