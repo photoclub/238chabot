@@ -124,6 +124,8 @@ class FbBot
                 $answer = getWeather(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'university') {
                 $answer = getUniversity(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'uni') {
+                $answer = getUni(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'trump') {
                 $answer = getTrump(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'imdb') {
