@@ -1,6 +1,5 @@
 <?php
 
-
 function getUni($uni) {
   $command = " Please try again.\nUniversity <name>";
   $uni = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $uni)));
