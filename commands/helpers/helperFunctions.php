@@ -28,7 +28,6 @@ function getCommandList(){
   $output = "****************************\n";
   $output = $output . "HELP COMMANDS \n";
   $output = $output . "****************************\n";
-  $output = $output . "• HELP\n";
   $output = $output . "• ECHO <your message>\n";
   $output = $output . "• GENDER <name>\n";
   $output = $output . "• HISTORY <mm/dd>\n";
@@ -43,6 +42,8 @@ function getCommandList(){
   $output = $output . "• SYNONYMS <word>\n";
   $output = $output . "• TRUMP <keyword>\n";
   $output = $output . "• WEATHER <location>\n";
+  $output = $output . "• HELP <command>";
+  $output = $output . "  to know more about\n  the specific command\n";
   return $output;
 }
 
