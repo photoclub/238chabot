@@ -100,9 +100,7 @@ class FbBot
                 $answer = getRecipe(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
                 file_put_contents('test-list-recipe.txt', json_encode($answer));
             } elseif ($msgarray[0] == 'help') {
-
-                $answer = ['text' => getCommandList() ];
-
+                $answer = getCommandList(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'echo') {
                 $parrot = implode(" ", array_slice($msgarray, 1));
                 if(!empty($parrot)){
