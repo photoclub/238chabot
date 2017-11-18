@@ -12,6 +12,7 @@ include 'commands/imdb.php';
 include 'commands/synonyms.php';
 include 'commands/trump.php';
 include 'commands/weather.php';
+include 'commands/univ.php';
 include 'commands/helpers/helperFunctions.php';
 
 
@@ -29,6 +30,7 @@ class FbBot
     public function __construct()
     {
         $this->imdb = new IMDB();
+        $this->univ2 = new University();
     }
 
     public function setHubVerifyToken($value)
@@ -126,6 +128,8 @@ class FbBot
                 $answer = getWeather(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'university') {
                 $answer = getUniversity(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'univ') {
+                $answer = $this->univ2->getUniversity(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
             } elseif ($msgarray[0] == 'trump') {
                 $answer = getTrump(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'imdb') {
