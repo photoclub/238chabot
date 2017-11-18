@@ -8,8 +8,10 @@ include 'commands/ip.php';
 include 'commands/phone.php';
 include 'commands/php.php';
 include 'commands/university.php';
-//include 'commands/imdb.php';
+include 'commands/imdb.php';
 include 'commands/synonyms.php';
+include 'commands/trump.php';
+include 'commands/weather.php';
 include 'commands/helpers/helperFunctions.php';
 
 
@@ -26,7 +28,7 @@ class FbBot
 
     public function __construct()
     {
-        //$this->imdb = new IMDB();
+        $this->imdb = new IMDB();
     }
 
     public function setHubVerifyToken($value)
@@ -120,8 +122,12 @@ class FbBot
                 $answer = getPhone(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'php') {
                 $answer = getPhp(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'weather') {
+                $answer = getWeather(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'university') {
                 $answer = getUniversity(implode(" ", array_slice($msgarray, 1)));
+            } elseif ($msgarray[0] == 'trump') {
+                $answer = getTrump(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'imdb') {
                 $answer = $this->imdb->getMovieRating(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
             } elseif ($msgarray[0] == 'synonyms') {
@@ -200,7 +206,7 @@ class FbBot
             // }
             elseif (!empty($messageText)) {
 
-                $answer = ['text' => 'command not found'];
+                $answer = ['text' => 'Command not found. Use HELP to check available commands.'];
             }
 
             $response = [

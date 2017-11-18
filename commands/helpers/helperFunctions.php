@@ -16,6 +16,8 @@ function checkValidity($buffer,$type)
       return !preg_match('/[^A-Za-z\,\ ]/', $buffer);
     case 'word':
       return !preg_match('/[^A-Za-z\-\ ]/', $buffer);
+    case 'weather':
+      return !preg_match('/[^A-Za-z\-\,\ ]/', $buffer);
     default:
       return 0;
   }
@@ -39,6 +41,8 @@ function getCommandList(){
   $output = $output . "• RECIPE <viand>\n";
   $output = $output . "• IMDB <movie title>\n";
   $output = $output . "• SYNONYMS <word>\n";
+  $output = $output . "• TRUMP <keyword>\n";
+  $output = $output . "• WEATHER <location>\n";
   return $output;
 }
 

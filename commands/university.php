@@ -19,11 +19,10 @@ function getUniversity($uni) {
 
         if($unicount == 1 ){
           $output = $output . "Name: " . $proc[0]['name'] . 
-          ' (' . $proc[0]['alpha_two_code'] .
-          ")\nWeb Pages: ". $proc[0]['web_pages'][0] .
+          "\nWeb Page: ". $proc[0]['web_pages'][0] .
            ") \n\n";
         }else{
-          $proc[0]['alpha_two_code']. ")\n\nWebpages:\n";
+          $output = $output . "Webpages:\n";
           for($x = 0; $x < $unicount; $x++ ){
             for($y = 0; $y < $unicount; $y++ ){
               $output = $output . trim($proc[$x]['web_pages'][$y]) ." ";
