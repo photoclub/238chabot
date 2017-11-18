@@ -1,5 +1,10 @@
 <?php
 
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+include __DIR__ . '/../db_helper.php';
+
+
 function getUni($uni) {
   $command = " Please try again.\nUniversity <name>";
   $uni = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $uni)));
