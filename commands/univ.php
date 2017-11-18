@@ -16,7 +16,7 @@ class University {
         }
         $elements = array_slice($originalResponse, $top, $sizePerRequest);
         $buttons =  [];
-        if (count($elements) > 0) {
+        if (count($elements) > count($originalResponse)) {
             $postBackBtn = [
                 "type"    => "postback",
                 "title"   => "View more",
