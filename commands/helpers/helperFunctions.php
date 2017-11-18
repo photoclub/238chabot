@@ -62,7 +62,7 @@ function getCommandList($comm = NULL){
         $output = $output . "Example:\nECHO Hello World!\n";
         break;
       case 'imdb':
-        $output = $output . "Displays requested movie details.\n\n";
+        $output = $output . "Displays requested movie details. Shows multiple results. Click on the View more reviews button for next page of results.\n\n";
         $output = $output . "Usage:\nIMDB <movie title>\n";
         $output = $output . "Example:\nIMDB Batman\n";
         break;
@@ -77,9 +77,10 @@ function getCommandList($comm = NULL){
         $output = $output . "Example:\nPHONE 639181234567\n";
         break;
       case 'gender':
-        $output = $output . "Provides the probability of name’s gender in percentage. \n\n";
+        $output = $output . "Provides the probability of name’s gender in percentage. Can handle multiple names \n\n";
         $output = $output . "Usage:\nGENDER <name>\n";
         $output = $output . "Example:\nGENDER Charlie\n";
+        $output = $output . "GENDER Charlotte Efren\n";
         break;
       case 'history':
         $output = $output . "Displays the history of selected date. If Date is not provided, Bot randomly selects a History trivia. \n\n";
@@ -98,8 +99,8 @@ function getCommandList($comm = NULL){
         break;
       case 'university':
         $output = $output . "Displays the website(s) of selected university.\n\n";
-        $output = $output . "Usage:\nPHP <currency>\n";
-        $output = $output . "Example:\nPHP JPY\n";
+        $output = $output . "Usage:\nUNIVERSITY <name>\n";
+        $output = $output . "Example:\nUNIVERSITY University of the Philippines\n";
         break;
       case 'trump':
         $output = $output . "Displays quotes from Trump based on selected keyword.\n\n";
@@ -112,7 +113,7 @@ function getCommandList($comm = NULL){
         $output = $output . "Example:\nIP 8.8.8.8\n";
         break;
       case 'recipe':
-        $output = $output . "Provides viand’s recipe site link. If viand is not keyed-in, Bot will randomly provide recipes to display.\n\n";
+        $output = $output . "Provides viand’s recipe site link. Shows multiple results. Click on the View more recipes button for next page of results.\n\n";
         $output = $output . "Usage:\nRECIPE <viand>\n";
         $output = $output . "Example:\nRECIPE adobo\n";
         break;
