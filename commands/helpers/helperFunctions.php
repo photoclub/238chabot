@@ -49,7 +49,7 @@ function getCommandList($comm = NULL){
     $output = $output . "• TRUMP <keyword>\n";
     $output = $output . "• WEATHER <location>\n";
     $output = $output . "• REMINDERS\n";
-    $output = $output . "• REMIND <message> ~ \n <yyyy-mm-dd hh:mm>\n";
+    $output = $output . "• REMIND <message> ~ \n <yyyy/mm/dd hh:mm>\n";
     $output = $output . "• HELP <command>\n";
     $output = $output . "  learn more about\n  the specific command\n";
   }else{
