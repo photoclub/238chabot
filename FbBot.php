@@ -135,8 +135,7 @@ class FbBot
                 $answer = getSynonyms(implode(" ", array_slice($msgarray, 1)));
             } else if ($msgarray[0] == 'next') {
                 $last_command = getUserData($senderId);
-                $last_context = json_encode($last_command->context);
-                file_put_contents("test_log.json", json_encode($last_command));
+                $last_context = json_decode($last_command->context);
                 if ($last_command && $last_context->context->done == true) {
                   $answer = ['text' => "There's nothing to do here. Type \"help\""];
                 } elseif ($last_command->recent_command == "university") {
