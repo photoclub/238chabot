@@ -13,6 +13,7 @@ include 'commands/synonyms.php';
 include 'commands/trump.php';
 include 'commands/weather.php';
 include 'commands/helpers/helperFunctions.php';
+include_once 'db_helper.php';
 
 
 
@@ -132,6 +133,12 @@ class FbBot
                 $answer = $this->imdb->getMovieRating(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
             } elseif ($msgarray[0] == 'synonyms') {
                 $answer = getSynonyms(implode(" ", array_slice($msgarray, 1)));
+            } else if ($msgarray[0] == 'next') {
+                $last_command = getUserData($senderId);
+                $answer = ['text' => "There's nothing to do here. Type \"help\""];
+                if ($last_command->recent_command == "university") {
+                  $answer = getUniversity(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
+                }
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
                     "attachment" => [

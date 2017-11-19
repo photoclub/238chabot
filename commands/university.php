@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__ . '/../db_helper.php';
+// include_once __DIR__ . '/../db_helper.php';
 // include_once __DIR__  . '/helpers/helperFunctions.php';
 
 function getUniversity($uni, $extra_context=null) {
@@ -58,7 +58,7 @@ function getUniversity($uni, $extra_context=null) {
           if ($top + $sizePerRequest >= count($originalProc) - 1) {
             $output .= 'End of results.';
           } else {
-            $output .= 'Type "university '. $uni .'" for next set.';
+            $output .= 'Type "next" for next set.';
           }
         }
 
