@@ -13,6 +13,7 @@ include 'commands/synonyms.php';
 include 'commands/trump.php';
 include 'commands/weather.php';
 include 'commands/helpers/helperFunctions.php';
+include_once 'db_helper.php';
 
 
 
@@ -123,7 +124,7 @@ class FbBot
             } elseif ($msgarray[0] == 'weather') {
                 $answer = getWeather(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'university') {
-                $answer = getUniversity(implode(" ", array_slice($msgarray, 1)));
+                $answer = getUniversity(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
             /* } elseif ($msgarray[0] == 'uni') {
             /   $answer = getUni(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]); */
             } elseif ($msgarray[0] == 'trump') {
@@ -132,6 +133,14 @@ class FbBot
                 $answer = $this->imdb->getMovieRating(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
             } elseif ($msgarray[0] == 'synonyms') {
                 $answer = getSynonyms(implode(" ", array_slice($msgarray, 1)));
+            } else if ($msgarray[0] == 'next') {
+                $last_command = getUserData($senderId);
+                $last_context = json_decode($last_command->context);
+                if ($last_command && $last_context->context->done == true) {
+                  $answer = ['text' => "There's nothing to do here. Type \"help\""];
+                } elseif ($last_command->recent_command == "university") {
+                  $answer = getUniversity($last_command->message, ['user_id' => $senderId]);
+                }
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
                     "attachment" => [
