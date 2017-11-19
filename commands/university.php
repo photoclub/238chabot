@@ -9,6 +9,7 @@ function getUniversity($uni, $extra_context=null) {
   $originalProc = array();
   $sizePerRequest = 3;
   $top = 0;
+  $done = false;
 
   if (empty($uni)) {
     $output = "Please input the name of the university.".$command;
@@ -57,6 +58,7 @@ function getUniversity($uni, $extra_context=null) {
           }
           if ($top + $sizePerRequest >= count($originalProc) - 1) {
             $output .= 'End of results.';
+            $done = true;
           } else {
             $output .= 'Type "next" for next set.';
           }
@@ -82,7 +84,8 @@ function getUniversity($uni, $extra_context=null) {
               "context" => [
                   "top" => $top,
                   "responseCount" => count($proc),
-                  "originalResponseCount" => count($originalProc)
+                  "originalResponseCount" => count($originalProc),
+                  "done" => $done
               ]
           ]
       );
