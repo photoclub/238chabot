@@ -4,7 +4,7 @@ date_default_timezone_set('Asia/Manila');
 
 
 function setReminder($message, $extra_context) {
-  $command = " Please try again.\nREMIND <message> ~ <yyyy-mm-dd hh:mm>";
+  $command = " Please try again.\nREMIND <message> ~ <yyyy/mm/dd hh:mm>";
   $message = trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $message)));
   $message = explode('~',$message);
 
@@ -76,7 +76,7 @@ function getReminder($message=NULL, $user) {
 
       }
     }else{
-      $output = "No reminders yet. Want to create one?\nREMIND <message> ~ <yyyy-mm-dd hh:mm>";
+      $output = "No reminders yet. Want to create one?\nREMIND <message> ~ <yyyy/mm/dd hh:mm>";
     }
   }
 

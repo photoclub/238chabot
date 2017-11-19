@@ -1,8 +1,12 @@
 <?php
 include 'db_helper.php';
 date_default_timezone_set('Asia/Manila');
+//PXMAI
+//$accessToken = 'EAAEkfXodrH4BAMyNIzcOwJMNfhsHMUyZBpntgSlWfB2d3nwg2lDwo4EYFnq633T64xGZBlrfQvHYZAaaqCqZCcmzaX1YnKZAUHuZCezfUrPa1hLzbo1LZBFSipZCgk3W9LAI9oUtPuwSOlYR56E3fcUKLGR5o2M2tpFmnS8nBBh06gZDZD';
 
-$accessToken = 'EAAEkfXodrH4BAMyNIzcOwJMNfhsHMUyZBpntgSlWfB2d3nwg2lDwo4EYFnq633T64xGZBlrfQvHYZAaaqCqZCcmzaX1YnKZAUHuZCezfUrPa1hLzbo1LZBFSipZCgk3W9LAI9oUtPuwSOlYR56E3fcUKLGR5o2M2tpFmnS8nBBh06gZDZD';
+//QUATTRO
+$accessToken = 'EAABxniO6VYQBANVKSOirZB6pT7FHp2LGetRostBNQFZBn9yeY2ct2rrqtZAqqQcNPK0kJa014LmXyv7sP5Vk2K2jYs3Bn39fYwaEDp8hyIwxMwK2CVOQ6B2Qz37wFZAD1ctugY2NdZBkTSfA4roBToXVqZAN2KFWdxnLbttHcd1wZDZD';
+
 
 
 

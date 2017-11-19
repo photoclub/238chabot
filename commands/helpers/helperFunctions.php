@@ -19,7 +19,7 @@ function checkValidity($buffer,$type)
     case 'weather':
       return !preg_match('/[^A-Za-z\-\,\ ]/', $buffer);
     case 'reminders':
-      return !preg_match('/[^A-Za-z0-9\-\,\~\:\ ]/', $buffer);
+      return !preg_match('/[^A-Za-z0-9\-\,\/\~\:\ ]/', $buffer);
     default:
       return 0;
   }
@@ -128,8 +128,8 @@ function getCommandList($comm = NULL){
         break;
       case 'remind':
         $output = $output . "Creates a reminder with a desired message and date time. Format is strict\n\n";
-        $output = $output . "Usage:\nREMIND <message> ~ <yyyy-mm-dd hh:mm>\n";
-        $output = $output . "Example:\nREMIND Take Exam ~ 2017-11-26 16:00\n";
+        $output = $output . "Usage:\nREMIND <message> ~ <yyyy/mm/dd hh:mm>\n";
+        $output = $output . "Example:\nREMIND Take Exam ~ 2017/11/26 16:00\n";
         break;
       case 'reminders':
         $output = $output . "Lists all active reminders.\n\n";
