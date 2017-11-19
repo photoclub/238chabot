@@ -28,7 +28,7 @@ if ($reminders){
     if($time_diff <= 60 ){
       $output = "****************************\n";
       $output = $output . "REMINDER\n";
-      $output = $output . Date('F j, Y H:i', strtotime($reminders[$x]['remind_date']));
+      $output = $output . Date('F j, Y H:i', strtotime($reminders[$x]['remind_date'])) . "\n";
       $output = $output . "****************************\n\n";
       $output = $output . ucfirst($reminders[$x]['message']);
 
