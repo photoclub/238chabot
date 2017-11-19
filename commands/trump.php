@@ -12,7 +12,9 @@ function getTrump($keyword, $extra_context=null) {
   $response = null;
   $responseCount = 0;
   $responseTotal = 0;
+  $prevContext = null;
   $done = false;
+  $invalid = false;
 
   if(!empty($keyword)){
     // if(checkValidity($keyword, 'name') == 1){
@@ -34,9 +36,13 @@ function getTrump($keyword, $extra_context=null) {
 
       $output = '';
       $url = 'https://api.tronalddump.io/search/quote?query='.$keyword.'&page='.$page;
-      print_r($page." : ".$top."\n");
-      print_r($url);
+      print_r($page." : ".$top. " : ".$prevContext["done"]."\n");
+      print_r($url."\n");
       $proc = json_decode(file_get_contents($url), true);
+      if (!isset($proc['_embedded']['quotes']) ||
+          count($proc['_embedded']['quotes']) == 0)) {
+        $done = true;
+      }
 
       if(!empty($proc['count'] != 0)){
         $output = $output . "****************************\n";
@@ -47,15 +53,9 @@ function getTrump($keyword, $extra_context=null) {
         // $rand = rand(0, $count);
         $response = $proc['_embedded']['quotes'][$top]['value'];
         $output = $output . $response;
-        if (count($proc['_embedded']['quotes']) <= 1) {
-          $done = true;
-        }
-      }else{
+      } else {
         $output = "Search keyword is not valid.".$command;
-        $done = true;
-      }
-      if ($proc["count"] == 0 || $proc["total"] == 0) {
-        $done = true;
+        $invalid = true;
       }
     // } else{
     //   $output = "Search keyword is using invalid characters.".$command;
@@ -83,11 +83,19 @@ function getTrump($keyword, $extra_context=null) {
   }
 
   $answer = ['text' => $output];
-  print_r($answer);
+  // print_r($output."\n");
   return $answer;
 }
 
-getTrump('Obama', ['user_id' => '1234']);
+// getTrump('Obama', ['user_id' => '1234']);
+// getTrump('Obama', ['user_id' => '1234']);
+// getTrump('Obama', ['user_id' => '1234']);
+// getTrump('Obama', ['user_id' => '1234']);
+// getTrump('Obama', ['user_id' => '1234']);
+// getTrump('Obama', ['user_id' => '1234']);
+// getTrump('Obama', ['user_id' => '1234']);
+// getTrump('Obama', ['user_id' => '1234']);
+// getTrump('Obama', ['user_id' => '1234']);
 // getTrump('Obama', ['user_id' => '1234']);
 // getTrump('Obama', ['user_id' => '1234']);
 // getTrump('Obama', ['user_id' => '1234']);
