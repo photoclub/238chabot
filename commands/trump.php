@@ -12,6 +12,7 @@ function getTrump($keyword, $extra_context=null) {
   $response = null;
   $responseCount = 0;
   $responseTotal = 0;
+  $done = false;
 
   if(!empty($keyword)){
     // if(checkValidity($keyword, 'name') == 1){
@@ -45,8 +46,12 @@ function getTrump($keyword, $extra_context=null) {
         $responseTotal = intval($proc['total']) - 1;
         // $rand = rand(0, $count);
         $output = $output . $proc['_embedded']['quotes'][$top]['value'];
+        if (count($proc['_embedded']['quotes']) <= 1) {
+          $done = true;
+        }
       }else{
         $output = "Search keyword is not valid.".$command;
+        $done = true;
       }
     // } else{
     //   $output = "Search keyword is using invalid characters.".$command;
@@ -66,7 +71,8 @@ function getTrump($keyword, $extra_context=null) {
                   "top" => $top,
                   "responseCount" => $responseCount,
                   "page" => $page,
-                  "originalResponseCount" => $responseTotal
+                  "originalResponseCount" => $responseTotal,
+                  "done": $done
               ]
           ]
       );
