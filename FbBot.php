@@ -12,6 +12,7 @@ include 'commands/imdb.php';
 include 'commands/synonyms.php';
 include 'commands/trump.php';
 include 'commands/weather.php';
+include 'commands/reminder.php';
 include 'commands/helpers/helperFunctions.php';
 
 
@@ -99,6 +100,12 @@ class FbBot
             } elseif ($msgarray[0] == 'recipe') {
                 $answer = getRecipe(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
                 file_put_contents('test-list-recipe.txt', json_encode($answer));
+            } elseif ($msgarray[0] == 'remind') {
+                $answer = setReminder(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
+                file_put_contents('test-list-recipe.txt', json_encode($answer));
+            } elseif ($msgarray[0] == 'reminders') {
+                $answer = getReminder(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
+                file_put_contents('test-list-recipe.txt', json_encode($answer));
             } elseif ($msgarray[0] == 'help') {
                 $answer = getCommandList(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'echo') {
@@ -125,7 +132,7 @@ class FbBot
             } elseif ($msgarray[0] == 'university') {
                 $answer = getUniversity(implode(" ", array_slice($msgarray, 1)));
             /* } elseif ($msgarray[0] == 'uni') {
-            /   $answer = getUni(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]); */
+               $answer = getUni(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]); */
             } elseif ($msgarray[0] == 'trump') {
                 $answer = getTrump(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'imdb') {
