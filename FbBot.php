@@ -128,7 +128,7 @@ class FbBot
             /* } elseif ($msgarray[0] == 'uni') {
             /   $answer = getUni(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]); */
             } elseif ($msgarray[0] == 'trump') {
-                $answer = getTrump(implode(" ", array_slice($msgarray, 1)));
+                $answer = getTrump(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
             } elseif ($msgarray[0] == 'imdb') {
                 $answer = $this->imdb->getMovieRating(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
             } elseif ($msgarray[0] == 'synonyms') {
@@ -136,10 +136,16 @@ class FbBot
             } else if ($msgarray[0] == 'next') {
                 $last_command = getUserData($senderId);
                 $last_context = json_decode($last_command->context);
+                $default = ['text' => "There's nothing to do here. Type \"help\""];
                 if ($last_command && $last_context->context->done == true) {
-                  $answer = ['text' => "There's nothing to do here. Type \"help\""];
+                  $answer = $default;
                 } elseif ($last_command->recent_command == "university") {
                   $answer = getUniversity($last_command->message, ['user_id' => $senderId]);
+                } elseif ($last_command->recent_command == "trump") {
+                  $answer = getTrump($last_command->message, ['user_id' => $senderId]);
+                  if (strpos($answer, "Search keyword is not valid.") === false) {
+                    $answer = $default;
+                  }
                 }
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
