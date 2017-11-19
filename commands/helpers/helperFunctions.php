@@ -48,6 +48,8 @@ function getCommandList($comm = NULL){
     $output = $output . "• SYNONYMS <word>\n";
     $output = $output . "• TRUMP <keyword>\n";
     $output = $output . "• WEATHER <location>\n";
+    $output = $output . "• REMINDERS\n";
+    $output = $output . "• REMIND <message> ~ \n <yyyy-mm-dd hh:mm>\n";
     $output = $output . "• HELP <command>\n";
     $output = $output . "  learn more about\n  the specific command\n";
   }else{
@@ -123,6 +125,15 @@ function getCommandList($comm = NULL){
         $output = $output . "Displays the synonyms of a selected word.\n\n";
         $output = $output . "Usage:\nSYNONYMS <word>\n";
         $output = $output . "Example:\nSYNONYMS win\n";
+        break;
+      case 'remind':
+        $output = $output . "Creates a reminder with a desired message and date time. Format is strict\n\n";
+        $output = $output . "Usage:\nREMIND <message> ~ <yyyy-mm-dd hh:mm>\n";
+        $output = $output . "Example:\nREMIND Take Exam ~ 2017-11-26 16:00\n";
+        break;
+      case 'reminders':
+        $output = $output . "Lists all active reminders.\n\n";
+        $output = $output . "Usage:\nREMINDERS\n";
         break;
       default:
         $output = "Specific command not found. Type HELP to get the command list.";

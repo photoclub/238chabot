@@ -70,7 +70,7 @@ function getReminder($message=NULL, $user) {
       for($x=0; $x < $remcount; $x++){
         $remind_date = Date('F j, Y H:i', strtotime($reminders[$x]['remind_date']));
 
-        $output = $output . '#' . $reminders[$x]['remind_id'] . "\n";
+        //$output = $output . '#' . $reminders[$x]['remind_id'] . "\n";
         $output = $output . $remind_date . "\n";
         $output = $output . $reminders[$x]['message'] . "\n\n";
 
