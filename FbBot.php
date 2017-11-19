@@ -123,7 +123,7 @@ class FbBot
             } elseif ($msgarray[0] == 'weather') {
                 $answer = getWeather(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'university') {
-                $answer = getUniversity(implode(" ", array_slice($msgarray, 1)));
+                $answer = getUniversity(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
             /* } elseif ($msgarray[0] == 'uni') {
             /   $answer = getUni(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]); */
             } elseif ($msgarray[0] == 'trump') {
