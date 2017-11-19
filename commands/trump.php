@@ -72,7 +72,7 @@ function getTrump($keyword, $extra_context=null) {
                   "responseCount" => $responseCount,
                   "page" => $page,
                   "originalResponseCount" => $responseTotal,
-                  "done": $done
+                  "done" => $done
               ]
           ]
       );
