@@ -136,10 +136,13 @@ class FbBot
             } else if ($msgarray[0] == 'next') {
                 $last_command = getUserData($senderId);
                 file_put_contents("test_log.json", json_encode($last_command));
-                if ($last_command->context->done) {
-                  $answer = ['text' => "There's nothing to do here. Type \"help\""];
+                $default = ['text' => "There's nothing to do here. Type \"help\""];
+                if ($last_command && $last_command->context["done"]) {
+                  $answer = $default;
                 } elseif ($last_command->recent_command == "university") {
                   $answer = getUniversity($last_command->message, ['user_id' => $senderId]);
+                } else {
+                  $answer = $default;
                 }
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
