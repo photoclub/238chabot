@@ -51,7 +51,7 @@ function getTrump($keyword, $extra_context=null) {
         $responseCount = intval($proc['count']) - 1;
         $responseTotal = intval($proc['total']) - 1;
         // $rand = rand(0, $count);
-        $response = $proc['_embedded']['quotes'][$top]['value'];
+        $response = $proc['_embedded']['quotes'][$top]['value'] . "\n\nType 'next' for next quote.";
         $output = $output . $response;
       } else {
         $output = "Search keyword is not valid.".$command;
