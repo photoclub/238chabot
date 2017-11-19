@@ -45,12 +45,16 @@ function getTrump($keyword, $extra_context=null) {
         $responseCount = intval($proc['count']) - 1;
         $responseTotal = intval($proc['total']) - 1;
         // $rand = rand(0, $count);
-        $output = $output . $proc['_embedded']['quotes'][$top]['value'];
+        $response = $proc['_embedded']['quotes'][$top]['value'];
+        $output = $output . $response;
         if (count($proc['_embedded']['quotes']) <= 1) {
           $done = true;
         }
       }else{
         $output = "Search keyword is not valid.".$command;
+        $done = true;
+      }
+      if ($proc["count"] == 0 || $proc["total"] == 0) {
         $done = true;
       }
     // } else{
