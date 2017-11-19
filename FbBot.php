@@ -216,6 +216,14 @@ class FbBot
                 $answer = ['text' => 'Command not found. Use HELP to check available commands.'];
             }
 
+            $text_limit_count_checker = json_decode($answer);
+
+
+            if(strlen($text_limit_count_checker['text']) > 640){
+              $answer = ['text' => "The message being processed exceeds Facebook's character limit. Type HELP for list of available commands."];
+            }
+
+
             $response = [
                 'recipient' => ['id' => $senderId],
                 'message' => $answer,
