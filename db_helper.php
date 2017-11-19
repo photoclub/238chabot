@@ -77,6 +77,15 @@ function getRemindersToSend() {
     return $query;
 }
 
+function getRemindersOfUser($user_id) {
+    global $db;
+    $query = $db->reminders()
+                ->where('user_id', $user_id)
+                ->where('done', 0)
+                ->fetchAll();
+    return $query;
+}
+
 function markAsDone($user_id, $remind_id) {
     global $db;
     $row = $db->reminders()

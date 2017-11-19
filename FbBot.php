@@ -103,16 +103,18 @@ class FbBot
                 file_put_contents('test-list-recipe.txt', json_encode($answer));
             } elseif ($msgarray[0] == 'remind') {
                 $answer = setReminder(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
-                file_put_contents('test-list-recipe.txt', json_encode($answer));
             } elseif ($msgarray[0] == 'reminders') {
                 $answer = getReminder(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
-                file_put_contents('test-list-recipe.txt', json_encode($answer));
             } elseif ($msgarray[0] == 'help') {
                 $answer = getCommandList(implode(" ", array_slice($msgarray, 1)));
             } elseif ($msgarray[0] == 'echo') {
                 $parrot = implode(" ", array_slice($msgarray, 1));
                 if(!empty($parrot)){
-                  $answer = ['text' => $parrot];
+                  if(strlen($parrot) < 641){
+                    $answer = ['text' => $parrot];
+                  }else{
+                    $answer = ['text' => "Your message exceeds Facebook limit. Type HELP for available commands."];
+                  }
                 }else{
                   $answer = ['text' => "There's nothing to echo. Please try again.\nECHO <your message>"];
                 }
@@ -229,13 +231,6 @@ class FbBot
             elseif (!empty($messageText)) {
 
                 $answer = ['text' => 'Command not found. Use HELP to check available commands.'];
-            }
-
-            $text_limit_count_checker = json_decode($answer);
-
-
-            if(strlen($text_limit_count_checker['text']) > 640){
-              $answer = ['text' => "The message being processed exceeds Facebook's character limit. Type HELP for list of available commands."];
             }
 
 
