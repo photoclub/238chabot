@@ -48,11 +48,10 @@ function getTrump($keyword, $extra_context=null) {
       }else{
         $output = "Search keyword is not valid.".$command;
       }
-    }
-    // else{
+    // } else{
     //   $output = "Search keyword is using invalid characters.".$command;
     // }
-  }else{
+  } else{
     $output = "Please input a search keyword.".$command;
   }
 
