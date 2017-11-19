@@ -20,6 +20,7 @@ function getUniversity($uni, $extra_context=null) {
       $url = 'http://universities.hipolabs.com/search?name='.urlencode($uni).'&country=philippines';
       $proc = json_decode(file_get_contents($url), true);
       $originalProc = $proc;
+      $log = null;
 
       if (empty($proc)) {
         $output = "University is not found on this list.".$command;
@@ -27,6 +28,7 @@ function getUniversity($uni, $extra_context=null) {
         // check previous session
         if ($extra_context) {
             $log = getUserDataForCommand($extra_context["user_id"], "university");
+            $answer = ['text' => "There's nothing to do here. Type \"help\""];
             if ($log && $log->recent_command == "university" && $log->message == $uni) {
                 $prevContext = (json_decode($log["context"], true));
                 $prevContext = $prevContext["context"];
@@ -47,7 +49,9 @@ function getUniversity($uni, $extra_context=null) {
         $output = $output . "UNIVERSIT" . ($unicount > 1 ? 'IES ' : 'Y '). ":\n" . ucwords($uni) . "\n";
         $output = $output . "****************************\n";
 
-        if($unicount == 1 ){
+        if ($log && $log->done) {
+          $answer = ['text' => "There's nothing to do here. Type \"help\""];
+        } elseif($unicount == 1 ){
           $output = $output . "Name: " . $proc[0]['name'] . 
           "\nWeb Page: ". $proc[0]['web_pages'][0] .
            ") \n\n";
