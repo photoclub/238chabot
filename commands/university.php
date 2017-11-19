@@ -1,6 +1,6 @@
 <?php
-include_once __DIR__ . '/../db_helper.php';
-include_once __DIR__  . '/helpers/helperFunctions.php';
+// include_once __DIR__ . '/../db_helper.php';
+// include_once __DIR__  . '/helpers/helperFunctions.php';
 
 function getUniversity($uni, $extra_context=null) {
   $command = " Please try again.\nUniversity <name>";
@@ -98,7 +98,7 @@ function getUniversity($uni, $extra_context=null) {
 }
 
 // getUniversity('University of Cebu', ['user_id' => '1234']);
-getUniversity('University of the Philippines', ['user_id' => '1234']);
+// getUniversity('University of the Philippines', ['user_id' => '1234']);
 // getUniversity('University of the Philippines', ['user_id' => '1234']);
 // getUniversity('University of Cebu', ['user_id' => '1234']);
 // getUniversity('University of the Philippines', ['user_id' => '1234']);
