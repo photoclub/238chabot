@@ -26,11 +26,17 @@ if ($reminders){
 
 
     if($time_diff <= 60 ){
-      $message_to_reply = '';
+      $output = "****************************\n";
+      $output = $output . "REMINDER\n";
+      $output = $output . Date('F j, Y H:i', strtotime($reminders[$x]['remind_date']));
+      $output = $output . "****************************\n\n";
+      $output = $output . ucfirst($reminders[$x]['message']);
+
+      $message_to_reply = $output;
       
       /* Required code to communicate back to Facebook */
         $url = "https://graph.facebook.com/v2.6/me/messages?access_token=".$accessToken;
-        $jsonData=formatToJsonText($reminders[$x]['user_id'],$reminders[$x]['message']);
+        $jsonData=formatToJsonText($reminders[$x]['user_id'],$message_to_reply);
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
