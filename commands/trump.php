@@ -14,7 +14,7 @@ function getTrump($keyword, $extra_context=null) {
   $responseTotal = 0;
 
   if(!empty($keyword)){
-    if(checkValidity($keyword, 'name') == 1){
+    // if(checkValidity($keyword, 'name') == 1){
       if ($extra_context) {
         $log = getUserDataForCommand($extra_context["user_id"], "trump");
         if ($log && $log->recent_command == "trump" && $log->message == $keyword) {
@@ -48,9 +48,10 @@ function getTrump($keyword, $extra_context=null) {
       }else{
         $output = "Search keyword is not valid.".$command;
       }
-    }else{
-      $output = "Search keyword is using invalid characters.".$command;
     }
+    // else{
+    //   $output = "Search keyword is using invalid characters.".$command;
+    // }
   }else{
     $output = "Please input a search keyword.".$command;
   }
