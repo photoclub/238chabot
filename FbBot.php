@@ -137,7 +137,7 @@ class FbBot
                 $last_command = getUserData($senderId);
                 $answer = ['text' => "There's nothing to do here. Type \"help\""];
                 if ($last_command->recent_command == "university") {
-                  $answer = getUniversity(implode(" ", array_slice($msgarray, 1)), ['user_id' => $senderId]);
+                  $answer = getUniversity($last_command->message, ['user_id' => $senderId]);
                 }
             } elseif (in_array('blog', $msgarray)) {
                 $answer = [
