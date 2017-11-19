@@ -52,6 +52,7 @@ function getUniversity($uni, $extra_context=null) {
           $output = $output . "Name: " . $proc[0]['name'] . 
           "\nWeb Page: ". $proc[0]['web_pages'][0] .
            ") \n\n";
+          $done = true;
         } else {
           $output = $output . "Webpages:\n";
           foreach ($proc as $key => $value) {
