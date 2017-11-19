@@ -40,7 +40,7 @@ function getTrump($keyword, $extra_context=null) {
       print_r($url."\n");
       $proc = json_decode(file_get_contents($url), true);
       if (!isset($proc['_embedded']['quotes']) ||
-          count($proc['_embedded']['quotes']) == 0)) {
+          count($proc['_embedded']['quotes']) == 0) {
         $done = true;
       }
 
