@@ -56,7 +56,7 @@ function getUniversity($uni, $extra_context=null) {
         } else {
           $output = $output . "Webpages:\n";
           foreach ($proc as $key => $value) {
-            $output .= $value['name'] .' '. join(' ', $value['web_pages']). "\n";
+            $output .= $value['name'] .' '. join(' ', $value['web_pages']). "\n\n";
           }
           if ($top + $sizePerRequest >= count($originalProc) - 1) {
             $output .= 'End of results.';

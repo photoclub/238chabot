@@ -43,6 +43,67 @@ function getUserDataForCommand($user_id, $command) {
     return $query;
 }
 
+// CHARLOTTE REMINDERS
+function saveReminderData($user_id, $remind_id, $message, $remind_date) {
+    global $db;
+    $row = $db->reminders()->createRow($properties = array());
+    $row->setData(array(
+        "user_id" => $user_id,
+        "remind_id" => $remind_id,
+        "message" => $message,
+        "remind_date" => $remind_date,
+        "done" => 0,    
+        "when" => date("Y-m-d H:i:s"),
+    ));
+    $row->save();
+    return $row; 
+}
+
+function getExistingReminderData($user_id) {
+    global $db;
+    $query = $db->reminders()
+                ->where('user_id', $user_id)
+                ->orderBy( 'when', 'DESC' )
+                ->limit( 1 )
+                ->fetch();
+    return $query;
+}
+
+function getRemindersToSend() {
+    global $db;
+    $query = $db->reminders()
+                ->where('done', 0)
+                ->fetchAll();
+    return $query;
+}
+
+function getRemindersOfUser($user_id) {
+    global $db;
+    $query = $db->reminders()
+                ->where('user_id', $user_id)
+                ->where('done', 0)
+                ->fetchAll();
+    return $query;
+}
+
+function markAsDone($user_id, $remind_id) {
+    global $db;
+    $row = $db->reminders()
+                ->where('user_id', $user_id)
+                ->where('remind_id', $remind_id)
+                ->limit( 1 )
+                ->fetch();
+
+    $row->setData(array(
+        "done" => 1   
+    ));
+    $row->save();
+    return $row; 
+}
+
+
+
+
 // Usage:
 // returns the LessQL object
 // print_r(getUserData('1234'));
