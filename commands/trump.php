@@ -54,14 +54,20 @@ function getTrump($keyword, $extra_context=null) {
         $response = $proc['_embedded']['quotes'][$top]['value'];
         $output = $output . $response;
       } else {
-        $output = "Search keyword is not valid.".$command;
+        $output = "Search keyword is not valid. ".$command;
         $invalid = true;
       }
     // } else{
     //   $output = "Search keyword is using invalid characters.".$command;
     // }
   } else{
-    $output = "Please input a search keyword.".$command;
+    $output = "Please input a search keyword. ".$command;
+  }
+
+  // sanity check
+  $pos = strpos($answer["text"], "Search keyword is not valid.");
+  if (!($pos === false)) {
+    $done = true;
   }
 
   if ($extra_context) {
@@ -87,12 +93,14 @@ function getTrump($keyword, $extra_context=null) {
   return $answer;
 }
 
-// getTrump('Line', ['user_id' => '1234']);
-// getTrump('Line', ['user_id' => '1234']);
-// getTrump('Line', ['user_id' => '1234']);
-// getTrump('Line', ['user_id' => '1234']);
-// getTrump('Line', ['user_id' => '1234']);
-// getTrump('Line', ['user_id' => '1234']);
-// getTrump('Line', ['user_id' => '1234']);
-// getTrump('Line', ['user_id' => '1234']);
-// getTrump('Line', ['user_id' => '1234']);
+// getTrump('Life', ['user_id' => '1234']);
+// getTrump('Life', ['user_id' => '1234']);
+// getTrump('Life', ['user_id' => '1234']);
+// getTrump('Life', ['user_id' => '1234']);
+// getTrump('Life', ['user_id' => '1234']);
+// getTrump('Life', ['user_id' => '1234']);
+// getTrump('Life', ['user_id' => '1234']);
+// getTrump('Life', ['user_id' => '1234']);
+// getTrump('Life', ['user_id' => '1234']);
+// getTrump('Life', ['user_id' => '1234']);
+// getTrump('Life', ['user_id' => '1234']);
