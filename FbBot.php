@@ -152,7 +152,8 @@ class FbBot
                   $answer = getUniversity($last_command->message, ['user_id' => $senderId]);
                 } elseif ($last_command->recent_command == "trump") {
                   $answer = getTrump($last_command->message, ['user_id' => $senderId]);
-                  if (strpos($answer, "Search keyword is not valid.") === false) {
+                  $pos = strpos($answer["text"], "Search keyword is not valid.");
+                  if (!($pos === false)) {
                     $answer = $default;
                   }
                 }
